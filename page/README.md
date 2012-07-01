@@ -1,0 +1,2 @@
+Pages for administration Mapito
+===============================

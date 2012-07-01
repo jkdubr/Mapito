@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="utf-8"/>          
+        <title>Mapito</title>
+
+        <script src="../lib/js/openlayers/OpenLayers.js"></script>
+
+        <script src="../lib/js/ligeolayers.js" ></script>
+        <script src="../lib/js/ligeoinfo.js" ></script>
+        <script src="../lib/js/ligeolegend.js" ></script>
+        <script src="../lib/js/ligeoprint.js" ></script>
+        <script src="../lib/js/ligeomeasurement.js" ></script>
+        <script src="../lib/js/ligeoabout.js" ></script>
+        <script src="../lib/js/ligeoeditor.js" ></script>
+        <script src="../lib/js/ligeologin.js" ></script>
+        <script src="../lib/js/ligeobaselayers.js" ></script>
+
+        <script type="text/javascript" src="../lib/js/jquery.js"></script>
+        <script type="text/javascript" src="../lib/js/jtree/_lib/jquery.hotkeys.js"></script>
+        <script type="text/javascript" src="../lib/js/jtree/jquery.jstree.js"></script>
+        <link type="text/css" rel="stylesheet" href="../lib/js/jtree/_docs/syntax/!style.css"/>
+        <link type="text/css" rel="stylesheet" href="../lib/js/jtree/_docs/!style.css"/>
+        <script type="text/javascript" src="../lib/js/jtree/_docs/syntax/!script.js"></script>
+
+        <!--script src="../lib/js/prettyPhoto/jquery-1.6.1.min.js" type="text/javascript"></script-->
+        <!--script src="../lib/js/prettyPhoto/jquery.lint.js" type="text/javascript" charset="utf-8"></script-->
+        <link rel="stylesheet" href="../lib/css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+        <script src="../lib/js/prettyPhoto/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="../lib/js/proj4js-compressed.js"></script>
+
+        <script src="../lib/js/ligeo.js"></script>
+
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyBlS2YkExw8V5jkhHWBCa0JtW2RhNmHSx4"  type="text/javascript"></script>
+
+
+
+        <link rel="stylesheet" href="../lib/css/style.css" type="text/css" />
+
+        <script type="text/javascript">
+
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-24999566-1']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+
+        </script>
+    </head>
+
+
+    <body onload="ligeoInit();">
+        <table id="menu">
+            <tr>
+                <td colspan="2" id="toolbar">
+                    <div id="panel"  class="olControlPanel"></div>
+                </td>
+            </tr>
+            <tr>
+                <td id="tabMenuContent">
+                    <div class="tabMenuContent" id="tabMenuContentlayers">
+                        <div>
+                            <strong>Base layers</strong>
+                            <form id="baseLayers"></form>
+                            <br/><br/>
+                        </div>
+                        <label for="LayerTreeSearch">Search:</label>  <input type="search" id="LayerTreeSearch" placeholder="Search"></input>
+                        <br/><br/>
+                        <div id="LayerTree" class="demo"></div>
+                    </div>
+                    <style type="text/css">
+                        .tabMenuContent table{
+                            width: 95%;
+                        }
+                        .tabMenuContent table, .tabMenuContent table td, .tabMenuContent table th {	
+                            border:1px solid #ddd;	
+                            background-color: darkBlue;
+                            border-collapse:collapse;	
+                            margin:0;
+                            padding:0;			
+                            padding:.2em .1em;	}	
+                        .tabMenuContent th {	    
+                            padding:.2em .2em;		
+                            font-weight:bold;		
+                        }	
+                        .tabMenuContent  td{}
+                        .tabMenuContent  tr.odd td{}
+                        .tabMenuContent  caption{	
+                            text-align:left;		
+                            font-size:100%;		
+                            font-weight:bold;		
+                            text-transform:uppercase;	
+                            padding:.2em .2em;	}  
+
+
+                    </style>
+                    <div class="tabMenuContent" id="tabMenuContentinfo">
+
+
+                        <div id="nodelist"></div>
+                        <div id="kn_hromadne"></div>
+                        <div id="kn_hromadne_table">
+
+                        </div>
+                        <br /><br />
+                        Use info control from toolbar to get info about feature.
+                        <ul>
+                            <li>
+                                <img src="../img/query_mode_on.png" alt=""/> Query on visible layers.
+                            </li>
+                            <li>
+                                <img src="../img/kn_on.png" alt=""/> Query on visible Czech cadastral.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="tabMenuContent" id="tabMenuContentlegend">
+
+                    </div>
+                    <div class="tabMenuContent" id="tabMenuContentprint">
+                        <button id="printArea" onclick="ligeo.modules['print'].activatePrintLayer();" style="width: 100%">Choose print extent.</button>
+                        <br /><br />
+                        Map name:
+
+                        <input type="hidden" id="dpi_form" value="300"></input>
+
+                        <input type="text" id="mapName" name="mapName" value="My map" size="20" />
+
+                        <br /><br />
+
+                        <!--<input type="button" value="Tisk" id="buttonPrint" onclick="ligeo.modules['print'].printSelected();"  style="width: 100%" />-->
+
+                        <form id="print_form" action="" method="POST" target="_blank" onsubmit="return ligeo.modules['print'].printSelected();">
+                            <input type="hidden" name="spec" >
+                            <input type="submit" value="Print" id="buttonPrint"  style="width: 100%" />
+                        </form>
+                        <br /><br />
+                        <div id="printInProgress" style="display: none">
+                            <table>
+                                <tr>
+                                    <td align="center">
+                                        <img src="../img/loading.gif" alt="loading"></img>
+                                    </td>
+                                    <td style="font-size: 20px">
+                                        Print in progress.
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div id="printResult" style="display: none">
+                            <table>
+                                <tr>
+                                    <td style="font-size: 20px;text-decoration: underline;cursor: pointer">
+                                        <a onclick="ligeo.modules['print'].openPrint();">Open printed map</a>            
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tabMenuContent" id="tabMenuContentmeasurement">
+
+                        <div id="mapStatus">
+                            <div id="mapProjection"></div>
+                            <div id="mapOutput">
+                            </div>
+                            <br /><br />
+
+                            Choose measurement control from toolbar.
+                            <ul>
+                                <li>
+                                    <img src="../img/distance_on.png" alt=""/>Length measurement control
+                                </li>
+                                <li>
+                                    <img src="../img/area_on.png" alt=""/>Area measurement control
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+
+                    <div class="tabMenuContent" id="tabMenuContenteditor">
+                        <form onsubmit="return ligeo.modules['editor'].addLayer(document.getElementById('tabMenuContenteditorTitle').value,document.getElementById('tabMenuContenteditorType').value);">
+                            <input id="tabMenuContenteditorTitle" type="text" placeholder="Layer name" name="title" />
+                            <select name="type" id="tabMenuContenteditorType">
+                                <option value="POINT">Point</option>
+                                <option value="MULTIPOLYGON">Polygon</option>
+                                <option value="LINESTRING">Line</option>
+                            </select>
+                            <input type="submit" value="Save" />
+                        </form>
+                        <div id="editingPanel" class="olControlEditingToolbar">
+
+                        </div>
+                        <fieldset>
+                            <select onchange="ligeo.modules['editor'].editLayer(this.value);" id="tabMenuContenteditorSelect">
+                                <option>== Layers ==</option>
+
+                            </select>
+
+                        </fieldset>
+                    </div>
+
+
+                    <div class="tabMenuContent" id="tabMenuContentabout"></div>
+
+                    <div class="tabMenuContent" id="tabMenuContentlogin">
+                        <fieldset>
+                            <form action="" method="GET" onsubmit="return ligeo.login(document.getElementById('f_login').value, document.getElementById('f_password').value);">  
+                                <label for="f_login">Login</label>
+                                <br />
+                                <input type="text" placeholder="Login" id="f_login" name="login" style="width: 150px"></input>
+                                <br />
+                                <label for="f_password">Password</label>
+                                <br />
+                                <input type="password" placeholder="Password" id="f_password" name="password" style="width: 150px"></input>
+                                <br />
+                                <input type="submit" value="Login"  style="width: 150px"></input>
+                            </form>
+                        </fieldset>
+
+
+                    </div>
+                </td>
+
+                <td  id="menuList" class="menuItem">
+
+                </td>
+            </tr>
+        </table>
+
+        <div id="map" class="olMap">
+        </div>
+    </body>
+</html>
