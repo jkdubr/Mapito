@@ -98,7 +98,9 @@ class LGLayerManager {
                 if ($_FILES["fileLegend"]["tmp_name"])
                     $this->uploadLayerLegend($_FILES["fileLegend"], $layerId);
             }
-
+            
+            $this->geoserverApi->api->reloadServer();
+            
             return $layerId;
         }
     }
