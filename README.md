@@ -16,27 +16,43 @@ PHP, MySQL, PostGIS, Geoserver
 
 Download Mapito from GitHub https://github.com/jkdubr/Mapito/
 
-Prepare backend, PHP, MySQL, PostGIS and Geoserver
+Prepare backend - PHP, MySQL, PostGIS and Geoserver
 
 ### Install PHP and MySQL on OpenShift
-http://cloud.dzone.com/articles/how-guide-hosting-openshift
+Mapito runs on PHP and MySQL. You can use your PHP server or free opensource solution OpenShift.
+
+A How-to Guide for Hosting on OpenShift http://cloud.dzone.com/articles/how-guide-hosting-openshift
 
 ### Install PostGIS
-http://postgis.refractions.net/documentation/manual-1.3/ch02.html
+PostGIS can be install on OpenShift. Unfortunatelly now OpenShift does not support connecting to database from one OpenShift application to another. So, you have to run PostGIS somewhere else :(
+How to install PostGIS http://postgis.refractions.net/documentation/manual-1.3/ch02.html
 
 ### Install Geoserver on OpenShift
-http://dubrovsky.posterous.com/geoserver-on-openshift
+For installing Geoserver look at my previous blogpost http://dubrovsky.posterous.com/geoserver-on-openshift
 
 ### Push Mapito to server
-push Mapito to server (to OpenShift)
+
+Transfer Mapito on your PHP server or PUSH it to OpenShift.
 
 ## Settings Mapito
-first settings
-enjoy first map portal
+
+### First settings
+
+<screen>
+<screen confirm>
+
+### Enjoy first map portal
+
+<screen example>
 
 ## Create your first map portal
-create map portal
-add public layers
-add any WMS
-add PostGIS layer
+
+<screen>
+
+### Create map portal
+
+### Add public layers
+### Add any WMS
+### Add PostGIS layer
+
 
