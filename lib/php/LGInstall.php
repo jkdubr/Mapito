@@ -73,7 +73,6 @@ $GLOBALS["LGSettings"] = new LGSettings();
 
 ?>';
         file_put_contents('../settings/main.php', $data);
-        file_put_contents('../settings/main.txt', $data);
     }
 
     function installMySQL() {

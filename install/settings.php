@@ -8,12 +8,37 @@ $LGInstall = new LGInstall();
 if (!$LGInstall->isEnabled()) {
     exit("Editing is disabled. You can enabled it in settings.");
 }
+if ($LGInstall->isInstalled()) {
+    require_once '../settings/main.php';
 
-$settings_domain = str_replace('install/settings.php', '', 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+    $mail = $LGSettings->mail;
+
+    $db_host = $LGSettings->db_host;
+    $db_user = $LGSettings->db_user;
+    $db_pass = $LGSettings->db_pass;
+    $db_name = $LGSettings->db_name;
+
+    $postgis_host = $LGSettings->postgis_host;
+    $postgis_user = $LGSettings->postgis_user;
+    $postgis_pass = $LGSettings->postgis_pass;
+
+    $geoserver_url = $LGSettings->geoserver_url;
+    $geoserver_user = $LGSettings->geoserver_user;
+    $geoserver_pass = $LGSettings->geoserver_pass;
+
+    $lang_default = $LGSettings->lang_default;
+
+    $module = $LGSettings->module;
+
+    $admin_url = $LGSettings->admin_url;
+    $map_url = $LGSettings->map_url;
+} else {
+    $settings_domain = str_replace('install/settings.php', '', 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 
 //
-$map_url = $settings_domain . 'module/viewer/';
-$admin_url = $settings_domain;
+    $map_url = $settings_domain . 'module/viewer/';
+    $admin_url = $settings_domain;
+}
 ?>
 <!DOCTYPE html>
 <html>
