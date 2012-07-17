@@ -128,15 +128,16 @@ if (!$user->isUser()) {
 
 
                                 <?php if ($user->isPrivilegeSuperAdmin()) { ?>
+                                    <li><a href="index.php?page=layers_public">Public layers</a></li>
                                     <li><a href="index.php?page=users_edit">Users</a></li>
-                                    <li><a href="install/<?php echo(($LGInstall->isEnabled() ? "disable" : "enable")); ?>.php" target="_blank" data-ajax="false"><?php echo(($LGInstall->isEnabled() ? "Disable setup page" : "Enable setup page")) ?></a></li>
+
                                     <?php
                                     if ($LGInstall->isEnabled()) {
                                         ?>  
-                                        <li><a href="install/settings.php" target="_blank">Setup Mapito</a></li>
+                                        <li><a href="install/settings.php" target="_blank">Mapito Setup</a></li>
                                     <?php } ?>
 
-                                    <li><a href="index.php?page=layers_public">Public layers</a></li>
+                                    <li><a href="install/<?php echo(($LGInstall->isEnabled() ? "disable" : "enable")); ?>.php" target="_blank" data-ajax="false"><?php echo(($LGInstall->isEnabled() ? "Disable setup page" : "Enable setup page")) ?></a></li>
                                     <!--<li><a href="contact/">Vkládání kontaktů</a></li>-->
                                 <?php } ?>
                                 <li><a href="action/logout.php"  data-ajax="false">Logout</a></li>

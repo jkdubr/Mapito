@@ -95,7 +95,7 @@ $planId = (int) $_GET['planId'];
             }            
         </script>
 
-        <script src="http://maps.google.com/maps/api/js?v=3.6&amp;sensor=false"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
 
     </head>
