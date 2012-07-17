@@ -36,7 +36,12 @@ function LiGeolegend(ligeo){
                 legendName1 = ligeo.ligeoMap.planLayers[i].name;
                 html += "<tr><td>"+legendImage1 + "</td><td> " + legendName1+ "</td></tr>";
             }
-       
+            else if (ligeo.ligeoMap.planLayers[i].metadata.type=="wms")
+            {
+                legendImage2 = "<img src='../img/wms.png' alt='legenda'>";
+                legendName2 = ligeo.ligeoMap.planLayers[i].name;
+                html += "<tr><td>"+legendImage2 + "</td><td>" + legendName2+ "</td></tr>";
+            }
 
             else
             {
