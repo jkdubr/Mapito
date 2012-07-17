@@ -20,31 +20,31 @@
             <input id="plan_edit0_mapCenterLat" type="text" name="mapCenterLat">
         </div>
         <div data-role="fieldcontain">
-            <label for="plan_edit0_mapCenterLon">Map center longitude (<a  onClick="window.open('page/plan_edit/plan_edit_centerMap/map.php?planId=0','','toolbar=1,resizable=1,scrollbars=yes,height=600px,width=600px');"  data-ajax="false">map</a>)>map</a>): </label>
+            <label for="plan_edit0_mapCenterLon">Map center longitude (<a  onClick="window.open('page/plan_edit/plan_edit_centerMap/map.php?planId=0','','toolbar=1,resizable=1,scrollbars=yes,height=600px,width=600px');"  data-ajax="false">map</a>): </label>
             <input id="plan_edit0_mapCenterLon" type="text" name="mapCenterLon">
         </div>
         <div data-role="fieldcontain">
-            <label for="plan_edit0_mapZoom">Map zoom (<a  onClick="window.open('page/plan_edit/plan_edit_centerMap/map.php?planId=0','','toolbar=1,resizable=1,scrollbars=yes,height=600px,width=600px');"  data-ajax="false">map</a>)>map</a>): </label>
+            <label for="plan_edit0_mapZoom">Map zoom (<a  onClick="window.open('page/plan_edit/plan_edit_centerMap/map.php?planId=0','','toolbar=1,resizable=1,scrollbars=yes,height=600px,width=600px');"  data-ajax="false">map</a>): </label>
             <input id="plan_edit0_mapZoom" type="range" value="17" min="1" max="20" name="mapZoom">
         </div>
-        <div data-role="fieldcontain">
+        <!--<div data-role="fieldcontain">
             <label for="plan_add_private">Is public: </label>
             <select id="plan_add_private" name="private">
                 <option value="0">private</option>
                 <option value="1" selected>public</option>
             </select>
-        </div>
+        </div>-->
         <div data-role="fieldcontain">
             <label for="plan_add_fileSplashscreen">Splashscreen: </label>
             <input id="plan_add_fileSplashscreen" type="file" accept="image/*" name="fileSplashscreen">
         </div>
-        <input type="submit" value="Vložit">
+        <input type="submit" value="Save">
     </form>
 </div>
 
 
 <div data-role="collapsible" data-collapsed="false" >
-    <h3>Plány</h3>
+    <h3>Plans</h3>
     <div  data-role="collapsible-set">
         <?php
         foreach ($planManager->getPlans() as $planId) {

@@ -66,23 +66,23 @@
                             <option value="3" <?php echo($privilege->privilege == 3 ? "selected" : ""); ?>>admin</option>
                         </select>   
                     </div>
-                    <div data-role="fieldcontain">
-                        <label for="users_edit<?php echo($systemUser->userId); ?>_planPrivilege_dateFrom<?php echo($plan->planId); ?>">from date:</label>
+                    <!--    <div data-role="fieldcontain">
+                            <label for="users_edit<?php echo($systemUser->userId); ?>_planPrivilege_dateFrom<?php echo($plan->planId); ?>">from date:</label>
 
-                        <input id="users_edit<?php echo($systemUser->userId); ?>_planPrivilege_dateFrom<?php echo($plan->planId); ?>" type="date" name="planPrivilege_dateFrom[]" value="<?php echo($privilege->dateFrom); ?>">
+                            <input id="users_edit<?php echo($systemUser->userId); ?>_planPrivilege_dateFrom<?php echo($plan->planId); ?>" type="date" name="planPrivilege_dateFrom[]" value="<?php echo($privilege->dateFrom); ?>">
 
-                    </div>
-                    <div data-role="fieldcontain">
-                        <label for="users_edit<?php echo($systemUser->userId); ?>_planPrivilege_dateTo<?php echo($plan->planId); ?>">to date:</label>
-                        <input id="users_edit<?php echo($systemUser->userId); ?>_planPrivilege_dateTo<?php echo($plan->planId); ?>" type="date" name="planPrivilege_dateTo[]" value="<?php echo($privilege->dateTo); ?>">
-                    </div>
-
+                        </div>
+                        <div data-role="fieldcontain">
+                            <label for="users_edit<?php echo($systemUser->userId); ?>_planPrivilege_dateTo<?php echo($plan->planId); ?>">to date:</label>
+                            <input id="users_edit<?php echo($systemUser->userId); ?>_planPrivilege_dateTo<?php echo($plan->planId); ?>" type="date" name="planPrivilege_dateTo[]" value="<?php echo($privilege->dateTo); ?>">
+                        </div>
+                    -->
                     <?php
                 }
                 ?>
 
 
-                <input type="submit" value="Save">
+                <input type="submit" value="Update">
                 <input type="button" value="Remove user" data-theme="a"  onclick="if(window.confirm('Remove user?')){document.location='action/user_remove.php?userId=<?php echo($systemUser->userId); ?>'}">
             </form>
         </div>
