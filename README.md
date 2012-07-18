@@ -45,9 +45,9 @@ You can set up Mapito in short time and run your map portal. Fill in your MySQL 
 After setting up basic information is send to your mail. Your new Mapito login is your email, password is your email. 
 
 ### Enjoy map portal
-If your account is set up correctly, go to admin page and disable Mapito setup. Enjoy map portal.  
+If your account is set up correctly, go to admin page and disable Mapito setup page. Enjoy map portal.  
 
-If you cannot login into Mapito admin page or have an error in database connection you can go again to setup page /install/settings.php and set up again.  
+If you cannot login into Mapito admin page or have an error in database connection you can go again to setup page /install/settings.php and set up Mapito again.  
 
 <screen example>
 
