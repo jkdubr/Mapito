@@ -385,5 +385,6 @@ function LiGeoinfo(ligeo){
    
 
     //alert(ligeo.ligeoMap.map.controls[3]);
-    ligeo.ligeoMap.toolbar.addControls([featureInfo,Kn]);
+    //ligeo.ligeoMap.toolbar.addControls([featureInfo,Kn]);
+    ligeo.ligeoMap.toolbar.addControls([featureInfo]);
 }

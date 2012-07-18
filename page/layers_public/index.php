@@ -33,6 +33,7 @@ $layerManager = new LGLayerManager($user);
     <div data-role="collapsible">
         <h3>Add public layer to map</h3>
         <form action="action/layer_add.php" method="POST"  data-ajax="false">
+            <input type="hidden" name="type" value="wms" />
             <div data-role="fieldcontain">
                 <label for="layerPublic_add_layer">Layer:</label>
                 <input id="layerPublic_add_layer" type="text" name="title" placeholder="Layer title">

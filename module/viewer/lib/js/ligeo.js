@@ -352,8 +352,6 @@ function LiGeoMap(ligeo) {
  
 
  
- 
-
     for(var i = 0; i < data.length; i++)
     {
         if(data[i].children)
@@ -424,7 +422,10 @@ function LiGeoMap(ligeo) {
                 }
             } 
     }
-
+    
+    if(this.planLayers.length)
+        this.map.setCenter(this.point, this.zoom);
+    
     //pruhlednost spatne nactenych vrstev a tilu 
 
     OpenLayers.IMAGE_RELOAD_ATTEMPTS = 2;
@@ -585,7 +586,7 @@ function LiGeoMap(ligeo) {
     //konec vytvoření funkce
     //transfotmace souradnic bodu centru pri nacteni
     //point.transform(new OpenLayers.Projection("EPSG:4326"), this.map.getProjectionObject());
-    this.map.setCenter(this.point, this.zoom);
+    
     //konec transformace
   
 
@@ -1634,7 +1635,7 @@ $(document).ready(function(){
         });
     }
                 
-    showSplashScreen();
+//  showSplashScreen();
                 
 });
 

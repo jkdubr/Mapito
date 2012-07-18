@@ -57,8 +57,9 @@ class LGPlanManager {
                     die("Error in connection: " . pg_last_error());
                 }
 
-                $sql = "CREATE DATABASE ligeo_" . $planName . "  WITH ENCODING='UTF8'       OWNER=ligeo_admin       TEMPLATE=utf8_postgis_template       CONNECTION LIMIT=-1;";
+                $sql = "CREATE DATABASE ligeo_" . $planName . "  WITH ENCODING='UTF8'       OWNER=" . $GLOBALS["LGSettings"]->postgis_user . "       TEMPLATE=utf8_postgis_template       CONNECTION LIMIT=-1;";
 
+                
                 pg_query($pg, $sql);
 
                 $sql = "GRANT ALL ON DATABASE ligeo_" . $planName . " TO GROUP ligeo_user;";

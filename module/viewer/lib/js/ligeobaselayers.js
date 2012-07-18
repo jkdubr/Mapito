@@ -3,30 +3,27 @@ var bLgsat, bLgclasic, bLblank, bLwhite
 function LiGeobaseLayers(ligeo,baseLayersNames){
     
    
+   
     bLgsat = new OpenLayers.Layer.Google(
         "Google Satellite",
         {
-            type: G_SATELLITE_MAP,
-            'sphericalMercator': true,
+            type: google.maps.MapTypeId.SATELLITE, 
+            numZoomLevels: 21,
             visibility: false,
-            format: "image/png",
-            opacity: 1,
-            isBaseLayer: true,
-            numZoomLevels: 21
-        })
-
+            isBaseLayer: true
+        }
+        );
+            
     bLgclasic = new OpenLayers.Layer.Google(
-        "Google Clasic",
+        "Google Streets", // the default
         {
-            type: G_NORMAL_MAP,
-            'sphericalMercator': true,
+            numZoomLevels: 21, 
             visibility: false,
-            format: "image/png",
-            opacity: 1,
-            isBaseLayer: true,
-            numZoomLevels: 21
-        })
-        
+            isBaseLayer: true
+        }
+        );
+            
+   
     
     bLwhite = new OpenLayers.Layer.Image(
         "None",
@@ -50,7 +47,7 @@ function LiGeobaseLayers(ligeo,baseLayersNames){
   
   
     for(i=0; i<baseLayersNames.length; i++){
-        baseLayerName.push(eval(baseLayersNames[i]))
+        baseLayerName.push(eval(baseLayersNames[i]));
     }
    
    
@@ -70,7 +67,9 @@ function LiGeobaseLayers(ligeo,baseLayersNames){
   
   
     ligeo.ligeoMap.map.addLayers(baseLayerName);
-    
+    if(baseLayerName.length)  
+        ligeo.ligeoMap.map.setCenter(ligeo.ligeoMap.point, ligeo.ligeoMap.zoom);
+
     baseLayerName[baseLayersNames.indexOf(defaultLayer)].setVisibility(true)
     var visibleBaseLayer = defaultLayer
     document.getElementById(defaultLayer).checked = true

@@ -123,7 +123,7 @@ $GLOBALS["LGSettings"] = new LGSettings();
     }
 
     function sendMailAfterInstall($mail, $admin_url) {
-        $message = "Welcome in Mapito, free map server for everyone. Your server is ready on $admin_url . \n\n Important: if mapito is set correctly, you should disable public setup page on this url: " . $admin_url . "/install/disable.php. You can enable setup page again in Mapito settings $admin_url . Setup page is $admin_url/install/settings.php \n\nYour Mapito login is $mail and password is $mail . You can change your credentionals in settings. ";
+        $message = "Welcome in Mapito, free map server for everyone. Your server is ready on $admin_url . \n\n Important: if mapito is set up correctly, you should disable public setup page on this url: " . $admin_url . "/install/disable.php. You can enable setup page again in Mapito settings $admin_url . Setup page is $admin_url/install/settings.php \n\nYour Mapito login is $mail and password is $mail . You can change your credentionals in settings. ";
         mail($mail, "Mapito", $message);
     }
 
