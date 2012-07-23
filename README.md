@@ -39,7 +39,7 @@ Transfer Mapito on your PHP server or PUSH it to OpenShift.
 
 You can set up Mapito in short time and run your map portal. Fill in your MySQL account for storing metadata, PostGIS account for storing GIS data, Geoserver account and URL where Mapito is. Mapito admin page URL is URL where is root Mapito page. Mapito viewer url is where Mapito map portal is. Default is http://admin.your_domain.com/module/viewer, but you can change it.
 
-!(https://public.sn2.livefilestore.com/y1p-AgzKs3qub4iWtxRbfVptGHu5coVxRYaGyFNgNPtcKq8DLTkZPDCLyVFVL84L4eVL6CdmbQGCjcRV8RG7ZuW1w/settings.png?psid=1)
+![alt](https://public.sn2.livefilestore.com/y1p-AgzKs3qub4iWtxRbfVptGHu5coVxRYaGyFNgNPtcKq8DLTkZPDCLyVFVL84L4eVL6CdmbQGCjcRV8RG7ZuW1w/settings.png?psid=1)
 
 After setting up basic information is send to your mail. Your new Mapito login is your email, password is your email. 
 
@@ -48,22 +48,22 @@ If your account is set up correctly, go to admin page and disable Mapito setup p
 
 If you cannot login into Mapito admin page or have an error in database connection you can go again to setup page /install/settings.php and set up Mapito again.  
 
-!(https://public.sn2.livefilestore.com/y1pX5_CiWXrj_9hOT7IYo9ZNhSufRCTgJkP1QBorRnaJnoyKfodJs2EbciMCV8BVlItHGbOZx25CCsbDFQQaik8jw/map.png?psid=1)
+![alt](https://public.sn2.livefilestore.com/y1pX5_CiWXrj_9hOT7IYo9ZNhSufRCTgJkP1QBorRnaJnoyKfodJs2EbciMCV8BVlItHGbOZx25CCsbDFQQaik8jw/map.png?psid=1)
 
 
 ## Create first map portal
 
 ### Create map portal
 
-!(https://public.sn2.livefilestore.com/y1prtplwo0v1Xkzl7dTln8YLfsahEFpts55nMKQBuzuDS-XilyZLSNkR-v5WSA1wsGw3HXyQR4Nshkx3d_XwybO9w/3_planSetting.PNG?psid=1)
+![alt](https://public.sn2.livefilestore.com/y1prtplwo0v1Xkzl7dTln8YLfsahEFpts55nMKQBuzuDS-XilyZLSNkR-v5WSA1wsGw3HXyQR4Nshkx3d_XwybO9w/3_planSetting.PNG?psid=1)
 
 ### Add remote WMS
 
-!(https://public.sn2.livefilestore.com/y1pHvpPZuJNxKmrS3PG3DoipYs2hKDi2lCkaNLvuW8-3BtDhlGLnEiiDenQfE63rw8Z7zx-QyE8MOM7d-rIogBf4w/remote%20WMS.png?psid=1)
+![alt](https://public.sn2.livefilestore.com/y1pHvpPZuJNxKmrS3PG3DoipYs2hKDi2lCkaNLvuW8-3BtDhlGLnEiiDenQfE63rw8Z7zx-QyE8MOM7d-rIogBf4w/remote%20WMS.png?psid=1)
 
 ### Layer settings
 
-!(https://public.sn2.livefilestore.com/y1p-C7oq3YQ3TJIOxWrX4mqkX9eWih2hFSyvbdjVh6y_aPd0sBM3vVuru61WJvKr8Qo4EpQvqnQuiQpClQ4_cCEfA/6_WMS_layerSetting.png?psid=1)
+![alt](https://public.sn2.livefilestore.com/y1p-C7oq3YQ3TJIOxWrX4mqkX9eWih2hFSyvbdjVh6y_aPd0sBM3vVuru61WJvKr8Qo4EpQvqnQuiQpClQ4_cCEfA/6_WMS_layerSetting.png?psid=1)
 
 ### Your new meteo portal in few steps
 
