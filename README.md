@@ -67,7 +67,7 @@ If you cannot login into Mapito admin page or have an error in database connecti
 
 ### Your new meteo portal in few steps
 
-!(https://public.sn2.livefilestore.com/y1pEmU2TOtR3PorW7_FJnADevcl1t-ZX3kS0ofvnWC-8-duTup-r318P9nzwXNyTsAvW7VECH0GjPTOaLgd8t6XsA/7_metheoMap.PNG?psid=1)
+![alt](https://public.sn2.livefilestore.com/y1pEmU2TOtR3PorW7_FJnADevcl1t-ZX3kS0ofvnWC-8-duTup-r318P9nzwXNyTsAvW7VECH0GjPTOaLgd8t6XsA/7_metheoMap.PNG?psid=1)
 
 example: (http://admin.mapy.mostar.cz/module/viewer/usa_radar/)
 
