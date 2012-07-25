@@ -1,7 +1,9 @@
 # Mapito
 
 Mapito is opensource project for editing and sharing spatial data. It is map manager, which create new map portal with any WMS layers in a few seconds.
-Mapito is made available under a BSD-license.
+Mapito is made available under a MIT-license.
+
+Contact information: Jakub Dubrovsky (jkdubr@hotmail.com)
 
 
 ## Getting Mapito
