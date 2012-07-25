@@ -12,7 +12,6 @@ if ($LGInstall->isEnabled()){
     $LGInstall->installModules();
     $LGInstall->sendMailAfterInstall($_POST["mail"],$_POST["admin_url"]);
     header('Location: ready.php');
-   
 }else{
     exit("Editing is disabled. You can enabled it in settings.");
 }

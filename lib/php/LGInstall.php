@@ -72,7 +72,13 @@ class LGSettings {
 $GLOBALS["LGSettings"] = new LGSettings();
 
 ?>';
-        file_put_contents('../settings/main.php', $data);
+        $cd = getcwd();
+        chdir(dirname(__FILE__));
+
+
+        file_put_contents('../../settings/main.php', $data);
+
+        chdir($cd);
     }
 
     function installMySQL() {
@@ -102,24 +108,31 @@ $GLOBALS["LGSettings"] = new LGSettings();
     }
 
     function installModules() {
-        foreach (scandir("../module/") as $module) {
-            $modulePath = "../module/$module";
+        $cd = getcwd();
+        chdir(dirname(__FILE__));
+
+
+
+
+        foreach (scandir("../../module/") as $module) {
+            $modulePath = "../../module/$module";
             if (!is_dir($modulePath) || $module == ".." || $module == ".")
                 continue;
 
             //    echo("Installing module: $module <br>");
             //copy files from lib/php
 
-            foreach (scandir("../lib/php") as $libFile) {
-                if (is_file("../lib/php/$libFile")) {
-                    copy("../lib/php/$libFile", "$modulePath/lib/php/$libFile");
+            foreach (scandir(".") as $libFile) {
+                if (is_file("./$libFile")) {
+                    copy("./$libFile", "$modulePath/lib/php/$libFile");
                 }
             }
 
             //copy settings
             //       echo("copy from ../settings/main.php to $modulePath/settings/main.php <br>");
-            copy("../settings/main.php", "$modulePath/settings/main.php");
+            copy("../../settings/main.php", "$modulePath/settings/main.php");
         }
+        chdir($cd);
     }
 
     function sendMailAfterInstall($mail, $admin_url) {
