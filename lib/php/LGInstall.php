@@ -75,8 +75,15 @@ $GLOBALS["LGSettings"] = new LGSettings();
         $cd = getcwd();
         chdir(dirname(__FILE__));
 
+        $filename = "../../settings/main.php";
 
-        file_put_contents('../../settings/main.php', $data);
+        if (!file_put_contents($filename, $data)) {
+            if (!chmod("../../settings/", 0777)) {
+                exit("You have to change CHMOD to value 0777 for folder /settings , /install and /module/viewer ");
+            }
+            chmod("../../install/", 0777);
+            chmod("../../module/viewer", 0777);
+        }
 
         chdir($cd);
     }
