@@ -16,7 +16,7 @@ session_start();
 $cd = getcwd();
 chdir(dirname(__FILE__));
 if(!is_file('../../settings/main.php'))
-    header ('Location: ../../install/settings.php');
+    header ('Location: install/settings.php');
 require_once '../../settings/main.php';
 require_once 'LGConnect.php';
 chdir($cd);
