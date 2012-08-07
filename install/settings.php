@@ -261,25 +261,8 @@ $mapito_viewer_modules = file_get_contents("../module/viewer/settings/mapito_vie
                                 </p>
                             </fieldset>
                         </div>
-
-
                         <input type="submit" value="Submit">
-
-
-                        <!--
-                                            <fieldset data-role="controlgroup" data-type="vertical">
-                                                <legend>
-                                                    Choose:
-                                                </legend>
-                                                <input required name="checkbox1" id="checkbox1" type="checkbox" />
-                                                <label for="checkbox1">
-                                                    Checkbox
-                                                </label>
-                                            </fieldset>
-                                            <input required type="submit" value="Submit" />
-                        -->
                     </form>
-
                 </div>
             </div>
         <?php } ?>

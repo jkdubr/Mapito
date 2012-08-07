@@ -50,7 +50,7 @@ class LGLayerManager {
             $temp["type"] = $row['type'];
             $temp["namespace"] = "ligeo_" . $plan->name;
             $temp["planId"] = $planId;
-            $temp["url"] = $GLOBALS["LGSettings"]->api_url . '/proxyWMS.php?';
+            $temp["url"] = $GLOBALS["LGSettings"]->admin_url . '/proxyWMS.php?';
 
             $v = mydb_query('select layerId from layer where name="' . $temp["name"] . '" and planId=' . $planId . ';');
             if (mysqli_num_rows($v)) {
