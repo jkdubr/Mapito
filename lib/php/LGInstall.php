@@ -9,10 +9,11 @@ class LGInstall {
     }
 
     function checkAll($print = false) {
-        $ret = false;
-        // return true;
-        return $this->checkMySQL($print);
-        return $this->checkMySQL($print) || $this->checkPostGIS($print);
+
+        $ret1 = $this->checkMySQL($print);
+        $ret2 = $this->checkPostGIS($print);
+
+        return $ret1 || $ret2;
     }
 
     function checkMySQL($print = false) {
@@ -30,14 +31,13 @@ class LGInstall {
 
         $ret = false;
 
-        $pgsql_conn = pg_connect("host=" . $GLOBALS["LGSettings"]->postgis_host . " dbname=" . $GLOBALS["LGSettings"]->postgis_template . " user=" . $GLOBALS["LGSettings"]->postgis_user . " password=" . $GLOBALS["LGSettings"]->postgis_pass . "");
+        $pgsql_conn = @pg_connect("host=" . $GLOBALS["LGSettings"]->postgis_host . " dbname=" . $GLOBALS["LGSettings"]->postgis_template . " user=" . $GLOBALS["LGSettings"]->postgis_user . " password=" . $GLOBALS["LGSettings"]->postgis_pass . "");
         if (!$pgsql_conn) {
             if ($print)
-                echo("Error in PostGIS connection, database " . $GLOBALS["LGSettings"]->postgis_template . " is needed: " . pg_last_error());
+                echo("Error in PostGIS connection, PostGIS template database <b>" . $GLOBALS["LGSettings"]->postgis_template . "</b> is needed.");
             $ret = true;
-        }
-
-        pg_close($pgsql_conn);
+        }else
+            pg_close($pgsql_conn);
         return $ret;
     }
 

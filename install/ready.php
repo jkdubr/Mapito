@@ -21,7 +21,12 @@ require_once '../lib/php/main.lib.php';
     <body>
         <?php
         $LGInstall = new LGInstall();
-        if ($LGInstall->checkAll(false)) {
+
+        ob_start();
+        $LGInstall->checkAll(true);
+        $errOutput = ob_get_clean();
+
+        if ($errOutput) {
             ?>
             <div data-role="page" id="page1">
                 <div data-theme="a" data-role="header">
@@ -31,7 +36,7 @@ require_once '../lib/php/main.lib.php';
                 </div>
                 <div data-role="content" style="padding: 15px">
                     <?php
-                    $LGInstall->checkAll(true);
+                    echo $errOutput;
                     ?>
 
                 </div>
