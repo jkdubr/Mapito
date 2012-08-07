@@ -102,7 +102,8 @@ if ($LGInstall->isInstalled()) {
                     <?php
                 } elseif (isChmodOk() == FALSE) {
                     ?>
-                    <p>You have to change CHMOD to value 0777 for Mapito root folder. </p><p>chmod -R 777 /</p>
+                    <p>You have to change CHMOD to value 0777 for Mapito root folder. </p>
+                    <blockquote>sudochmod -R 777 /Mapito</blockquote>>
                     <?php
                 } else {
                     ?>                
@@ -136,6 +137,11 @@ if ($LGInstall->isInstalled()) {
                                     MySQL DB name
                                 </label>
                                 <input required name="db_name" id="" placeholder="mapito" value="<?php echo($db_name); ?>" type="text" />
+                                <p>
+                                    <i>
+                                        Created empty database for Mapito.
+                                    </i>
+                                </p>
                             </fieldset>
                         </div>
                         <div data-role="fieldcontain">
@@ -166,14 +172,6 @@ if ($LGInstall->isInstalled()) {
                         <div data-role="fieldcontain">
                             <fieldset data-role="controlgroup">
                                 <label for="">
-                                    PostGIS DB user
-                                </label>
-                                <input required name="postgis_user" id="" placeholder="root" value="<?php echo($postgis_user); ?>" type="text" />
-                            </fieldset>
-                        </div>
-                        <div data-role="fieldcontain">
-                            <fieldset data-role="controlgroup">
-                                <label for="">
                                     PostGIS database template
                                 </label>
                                 <input required name="postgis_template" id="" placeholder="template_postgis" value="<?php echo($postgis_template); ?>" type="text" />
@@ -185,6 +183,14 @@ if ($LGInstall->isInstalled()) {
                                     </i>
                                 </p>
 
+                            </fieldset>
+                        </div>                        
+                        <div data-role="fieldcontain">
+                            <fieldset data-role="controlgroup">
+                                <label for="">
+                                    PostGIS DB user
+                                </label>
+                                <input required name="postgis_user" id="" placeholder="root" value="<?php echo($postgis_user); ?>" type="text" />
                             </fieldset>
                         </div>
                         <div data-role="fieldcontain">
