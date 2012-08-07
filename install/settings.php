@@ -253,6 +253,12 @@ $mapito_viewer_modules = file_get_contents("../module/viewer/settings/mapito_vie
                                     Mapito viewer modules
                                 </label>
                                 <input required name="mapito_viewer_modules" id=""  value="<?php echo($mapito_viewer_modules); ?>"  type="text" />
+                                <p>
+                                    Available modules: 
+                                    <i>
+                                        layers, info, legend, print, edit, measurement, login
+                                    </i>
+                                </p>
                             </fieldset>
                         </div>
 
