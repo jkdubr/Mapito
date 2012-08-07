@@ -1,10 +1,9 @@
 <?php
 
-$GLOBALS["db_mysqli"] = new mysqli($GLOBALS["LGSettings"]->db_host, $GLOBALS["LGSettings"]->db_user, $GLOBALS["LGSettings"]->db_pass, $GLOBALS["LGSettings"]->db_name);
+$GLOBALS["db_mysqli"] = @new mysqli($GLOBALS["LGSettings"]->db_host, $GLOBALS["LGSettings"]->db_user, $GLOBALS["LGSettings"]->db_pass, $GLOBALS["LGSettings"]->db_name);
 
-if ($mysqli->connect_error) {
-    die('Connect Error (' . $mysqli->connect_errno . ') '
-            . $mysqli->connect_error);
+if ($GLOBALS["db_mysqli"]->connect_error) {
+    exit('MySQL connect error (' . $mysqli->connect_error . '), try to repair MySQL connectio for user: '.$GLOBALS["LGSettings"]->db_user.' and database:'.$GLOBALS["LGSettings"]->db_name.' ');
 }
 $GLOBALS["db_mysqli"]->query('SET NAMES "utf8" COLLATE "utf8_czech_ci"');
 

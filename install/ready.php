@@ -1,3 +1,6 @@
+<?php
+require_once '../lib/php/main.lib.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +19,26 @@
         </script>
     </head>
     <body>
+        <?php
+        $LGInstall = new LGInstall();
+        if ($LGInstall->checkAll(false)) {
+            ?>
+            <div data-role="page" id="page1">
+                <div data-theme="a" data-role="header">
+                    <h3>
+                        Error log
+                    </h3>
+                </div>
+                <div data-role="content" style="padding: 15px">
+                    <?php
+                    $LGInstall->checkAll(true);
+                    ?>
+
+                </div>
+            </div> 
+            <?php
+        }
+        ?>
         <!-- Home -->
         <div data-role="page" id="page1">
             <div data-theme="a" data-role="header">
@@ -25,13 +48,14 @@
             </div>
             <div data-role="content" style="padding: 15px">
 
+
                 <p>Mapito server is ready to use.</p>
 
                 <!--<p>Registration information has been sent to your mail.</p>-->
                 <p>Your new login is your email, your password is your email.</p>
-                
+
                 <p>Enjoy <a href="../module/viewer/example/" data-ajax="false">map example</a></p>
-                
+
                 <p>Go to <a href="../" data-ajax="false">admin page</a></p>
             </div>
         </div>

@@ -50,21 +50,21 @@ class LGPlanManager {
                 $layerManager = new LGLayerManager($this->user);
                 $layerManager->addLayerFolderBasic($planId);
  
-               $pg = pg_connect("host=" . $GLOBALS["LGSettings"]->postgis_host . " dbname=postgres user=" . $GLOBALS["LGSettings"]->postgis_user . " password=" . $GLOBALS["LGSettings"]->postgis_pass . "");
+               $pg = pg_connect("host=" . $GLOBALS["LGSettings"]->postgis_host . " dbname=" . $GLOBALS["LGSettings"]->postgis_template . " user=" . $GLOBALS["LGSettings"]->postgis_user . " password=" . $GLOBALS["LGSettings"]->postgis_pass . "");
 
                 if (!$pg) {
 
                     die("Error in connection: " . pg_last_error());
                 }
 
-                $sql = "CREATE DATABASE ligeo_" . $planName . "  WITH ENCODING='UTF8'       OWNER=" . $GLOBALS["LGSettings"]->postgis_user . "       TEMPLATE=utf8_postgis_template       CONNECTION LIMIT=-1;";
+                $sql = "CREATE DATABASE ligeo_" . $planName . "  WITH ENCODING='UTF8'       OWNER=" . $GLOBALS["LGSettings"]->postgis_user . "       TEMPLATE=" . $GLOBALS["LGSettings"]->postgis_template . "       CONNECTION LIMIT=-1;";
 
                 
                 pg_query($pg, $sql);
 
-                $sql = "GRANT ALL ON DATABASE ligeo_" . $planName . " TO GROUP ligeo_user;";
+            //    $sql = "GRANT ALL ON DATABASE ligeo_" . $planName . " TO GROUP ligeo_user;";
 
-                pg_query($pg, $sql);
+              //  pg_query($pg, $sql);
 
 //GRANT ALL ON DATABASE ligeo_r TO GROUP ligeo_user;                
 // close connection

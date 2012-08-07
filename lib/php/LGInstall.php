@@ -8,6 +8,39 @@ class LGInstall {
         
     }
 
+    function checkAll($print = false) {
+        $ret = false;
+        // return true;
+        return $this->checkMySQL($print);
+        return $this->checkMySQL($print) || $this->checkPostGIS($print);
+    }
+
+    function checkMySQL($print = false) {
+        $con = new mysqli($GLOBALS["LGSettings"]->db_host, $GLOBALS["LGSettings"]->db_user, $GLOBALS["LGSettings"]->db_pass, $GLOBALS["LGSettings"]->db_name);
+
+        if ($con->connect_error) {
+            if ($print)
+                echo("<p>MySQL connection error (" . $con->connect_errno . ")</p>");
+            return true;
+        }
+        return false;
+    }
+
+    function checkPostGIS($print = false) {
+
+        $ret = false;
+
+        $pgsql_conn = pg_connect("host=" . $GLOBALS["LGSettings"]->postgis_host . " dbname=" . $GLOBALS["LGSettings"]->postgis_template . " user=" . $GLOBALS["LGSettings"]->postgis_user . " password=" . $GLOBALS["LGSettings"]->postgis_pass . "");
+        if (!$pgsql_conn) {
+            if ($print)
+                echo("Error in PostGIS connection, database " . $GLOBALS["LGSettings"]->postgis_template . " is needed: " . pg_last_error());
+            $ret = true;
+        }
+
+        pg_close($pgsql_conn);
+        return $ret;
+    }
+
     function enable() {
         $cd = getcwd();
         chdir(dirname(__FILE__));
@@ -50,6 +83,7 @@ class LGSettings {
     var $postgis_host = "' . $array["postgis_host"] . '";
     var $postgis_user = "' . $array["postgis_user"] . '";
     var $postgis_pass = "' . $array["postgis_pass"] . '";
+    var $postgis_template = "' . $array["postgis_template"] . '";
     
     var $geoserver_url = "' . $array["geoserver_url"] . '";
     var $geoserver_user = "' . $array["geoserver_user"] . '";
@@ -78,11 +112,9 @@ $GLOBALS["LGSettings"] = new LGSettings();
         $filename = "../../settings/main.php";
 
         if (!file_put_contents($filename, $data)) {
-            if (!chmod("../../settings/", 0777)) {
-                exit("You have to change CHMOD to value 0777 for folder /settings , /install and /module/viewer ");
-            }
-            chmod("../../install/", 0777);
-            chmod("../../module/viewer", 0777);
+            exit("<p>You have to change CHMOD to value 0777 for Mapito root folder. </p><p>chmod -R 777 /</p>");
+            //  chmod("../../install/", 0777);
+            //chmod("../../module/viewer", 0777);
         }
 
         chdir($cd);
@@ -98,17 +130,20 @@ $GLOBALS["LGSettings"] = new LGSettings();
         chdir($cd);
 
 
+        $con = new mysqli($GLOBALS["LGSettings"]->db_host, $GLOBALS["LGSettings"]->db_user, $GLOBALS["LGSettings"]->db_pass, $GLOBALS["LGSettings"]->db_name);
 
-        $v = mysqli_multi_query($GLOBALS["db_mysqli"], $query);
+        if ($con->connect_error)
+            exit("Error in MySQL connection (" . $con->connect_error . "). ");
+        $v = mysqli_multi_query($con, $query);
 
         do {
 
-            if ($GLOBALS["db_mysqli"]->more_results()) {
+            if ($con->more_results()) {
                 //        printf("-----------------\n");
             }
-        } while ($GLOBALS["db_mysqli"]->next_result());
+        } while ($con->next_result());
 
-        echo(mysqli_error($GLOBALS["db_mysqli"]));
+        echo(mysqli_error($con));
 
         //exit("kuk");
         mydb_query('insert user set privilege=6,mail="' . $GLOBALS["LGSettings"]->mail . '",password="' . $GLOBALS["LGSettings"]->mail . '",title="' . $GLOBALS["LGSettings"]->mail . '";');
