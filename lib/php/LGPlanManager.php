@@ -59,11 +59,7 @@ class LGPlanManager {
 
                 $sql = "CREATE DATABASE ligeo_" . $planName . "  WITH ENCODING='UTF8'       OWNER=" . $GLOBALS["LGSettings"]->postgis_user . "       TEMPLATE=" . $GLOBALS["LGSettings"]->postgis_template . "       CONNECTION LIMIT=-1;";
 
-                
-                
                 pg_query($pg, $sql);
-                
-                exit($sql);
 
             //    $sql = "GRANT ALL ON DATABASE ligeo_" . $planName . " TO GROUP ligeo_user;";
 
