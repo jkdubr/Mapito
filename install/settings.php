@@ -103,15 +103,10 @@ if ($LGInstall->isInstalled()) {
                 } elseif (isChmodOk() == FALSE) {
                     ?>
                     <p>You have to change CHMOD to value 0777 for Mapito root folder. </p>
-                    <blockquote>sudochmod -R 777 /Mapito</blockquote>>
+                    <blockquote>sudo chmod -R 777 Mapito</blockquote>>
                     <?php
                 } else {
                     ?>                
-
-
-
-
-
 
                     <form action="settings_update.php" method="POST" data-ajax="false">
                         <div data-role="fieldcontain">
