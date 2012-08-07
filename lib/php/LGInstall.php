@@ -68,6 +68,17 @@ class LGInstall {
     }
 
     function createSettings($array) {
+        $cd = getcwd();
+        chdir(dirname(__FILE__));
+
+        $mapito_viewer_modules;
+        if (split(",", $array["mapito_viewer_modules"]) > 0)
+            $mapito_viewer_modules = $array["mapito_viewer_modules"];
+        else
+            $mapito_viewer_modules = "layers,info,legend,print,measurement,login";
+        file_put_contents("../../module/viewer/settings/mapito_viewer_modules", $mapito_viewer_modules);
+
+        
         $data = '<?php
 
 require_once "module.php";
@@ -106,15 +117,11 @@ class LGSettings {
 $GLOBALS["LGSettings"] = new LGSettings();
 
 ?>';
-        $cd = getcwd();
-        chdir(dirname(__FILE__));
 
         $filename = "../../settings/main.php";
 
         if (!file_put_contents($filename, $data)) {
             exit("<p>You have to change CHMOD to value 0777 for Mapito root folder. </p><p>chmod -R 777 /</p>");
-            //  chmod("../../install/", 0777);
-            //chmod("../../module/viewer", 0777);
         }
 
         chdir($cd);

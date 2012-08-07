@@ -49,6 +49,8 @@ if ($LGInstall->isInstalled()) {
     $map_url = $settings_domain . 'module/viewer/';
     $admin_url = $settings_domain;
 }
+
+$mapito_viewer_modules = file_get_contents("../module/viewer/settings/mapito_viewer_modules");
 ?>
 <!DOCTYPE html>
 <html>
@@ -238,6 +240,22 @@ if ($LGInstall->isInstalled()) {
                                 <input required name="map_url" id="f_map_url" placeholder="http://your_domain.com/" value="<?php echo($map_url); ?>"  type="url" />
                             </fieldset>
                         </div>
+                        <hr>
+                        <h3>
+                            Settings of Mapito modules
+                        </h3>
+                        <p>
+                            This section is not compulsory.
+                        </p>
+                        <div data-role="fieldcontain">
+                            <fieldset data-role="controlgroup">
+                                <label for="">
+                                    Mapito viewer modules
+                                </label>
+                                <input required name="mapito_viewer_modules" id=""  value="<?php echo($mapito_viewer_modules); ?>"  type="text" />
+                            </fieldset>
+                        </div>
+
 
                         <input type="submit" value="Submit">
 
