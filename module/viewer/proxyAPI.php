@@ -46,6 +46,7 @@ if ($mimeType != "") {
 }
 // Make the call
 $response = curl_exec($session);
+
 echo $response;
 
 curl_close($session);

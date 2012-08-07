@@ -72,12 +72,12 @@ function LiGeoeditor(ligeo){
                 alert("Error");
             } else {
                 alert("Layer added");
-            //    window.location.reload();
+                window.location.reload();
             }
             return false;
         }, "json");
         
-    //     return false;
+         return false;
     }
     
     

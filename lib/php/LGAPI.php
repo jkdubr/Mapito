@@ -166,6 +166,10 @@ class LGAPI {
 
         $geoserverApi = new GeoserverAPILigeo();
         $geoserverApi->api->reloadServer();
+        
+        $ret["err"]="";
+        
+        return $ret;
     }
 
     function formDetail($formId) {
