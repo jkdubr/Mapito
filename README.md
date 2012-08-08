@@ -17,7 +17,7 @@ PHP, MySQL, PostGIS, Geoserver
 
 create PostGIS template database in PostGIS - template database generally created by the Postgis installer to ease the process of  creating Postgis-enabled databases.
 
-set chmod for Mapito folder - linux: sudo chmod -R 777 /
+set chmod for Mapito folder - linux: sudo chmod -R 755 /
 
 install CURL for PHP - ubuntu: apt-get install php5-curl
 
