@@ -6,6 +6,9 @@ function LiGeoinfo(ligeo){
     var that = this;
     this.name = "info";
     var knLayer;
+    
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContentinfo"><div id="nodelist"></div><div id="kn_hromadne"></div><div id="kn_hromadne_table"></div><br /><br />Use info control from toolbar to get info about feature.<ul><li><img src="../img/query_mode_on.png" alt=""/> Query on visible layers.</li></ul></div>');
+    
     this.title = function(){
         //todo taday zjistim lokalizaci 
         return "Info";

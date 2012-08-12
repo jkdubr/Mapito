@@ -7,6 +7,9 @@ function LiGeoeditor(ligeo){
     this.panel;
     
     
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContenteditor"><form onsubmit="return ligeo.modules[\'editor\'].addLayer(document.getElementById(\'tabMenuContenteditorTitle\').value,document.getElementById('tabMenuContenteditorType').value);"><input id="tabMenuContenteditorTitle" type="text" placeholder="Layer name" name="title" /><select name="type" id="tabMenuContenteditorType"><option value="POINT">Point</option><option value="MULTIPOLYGON">Polygon</option><option value="LINESTRING">Line</option></select><input type="submit" value="Save" /></form><div id="editingPanel" class="olControlEditingToolbar"></div><fieldset><select onchange="ligeo.modules[\'editor\'].editLayer(this.value);" id="tabMenuContenteditorSelect"><option>== Layers ==</option></select></fieldset></div>');
+    
+    
     this.title = function(){
         //todo taday zjistim lokalizaci 
         return "Editor";

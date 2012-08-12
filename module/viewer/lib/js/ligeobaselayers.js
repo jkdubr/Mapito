@@ -2,8 +2,6 @@ var bLgsat, bLgclasic, bLblank, bLwhite
 
 function LiGeobaseLayers(ligeo,baseLayersNames){
     
-   
-   
     bLgsat = new OpenLayers.Layer.Google(
         "Google Satellite",
         {

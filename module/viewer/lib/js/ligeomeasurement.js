@@ -1,6 +1,8 @@
 function LiGeomeasurement(ligeo){
     this.name = "measurement";
     
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContentmeasurement"><div id="mapStatus"><div id="mapProjection"></div><div id="mapOutput"></div><br /><br />Choose measurement control from toolbar.<ul><li><img src="../img/distance_on.png" alt=""/>Length measurement control</li><li><img src="../img/area_on.png" alt=""/>Area measurement control</li></ul></div></div>');
+    
     this.title = function(){
         //todo taday zjistim lokalizaci 
         return "Measurement";

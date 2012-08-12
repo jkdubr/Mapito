@@ -694,3 +694,31 @@ td#tabMenuContent{
 
 
 a { color:white; }
+
+
+
+
+
+
+.tabMenuContent table{
+    width: 95%;
+}
+.tabMenuContent table, .tabMenuContent table td, .tabMenuContent table th {	
+    border:1px solid #ddd;	
+    background-color: darkBlue;
+    border-collapse:collapse;	
+    margin:0;
+    padding:0;			
+    padding:.2em .1em;	}	
+.tabMenuContent th {	    
+    padding:.2em .2em;		
+    font-weight:bold;		
+}	
+.tabMenuContent  td{}
+.tabMenuContent  tr.odd td{}
+.tabMenuContent  caption{	
+    text-align:left;		
+    font-size:100%;		
+    font-weight:bold;		
+    text-transform:uppercase;	
+    padding:.2em .2em;	}  

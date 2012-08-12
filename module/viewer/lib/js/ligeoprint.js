@@ -4,6 +4,8 @@ function LiGeoprint(ligeo){
     var printMapUrl = ""; //URL PDF vrácené ze srvr
     var printLayer;
     
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContentprint"><button id="printArea" onclick="ligeo.modules[\'print\'].activatePrintLayer();" style="width: 100%">Choose print extent.</button><br /><br />Map name:<input type="hidden" id="dpi_form" value="300"></input><input type="text" id="mapName" name="mapName" value="My map" size="20" /><br /><br /><form id="print_form" action="" method="POST" target="_blank" onsubmit="return ligeo.modules[\'print\'].printSelected();"><input type="hidden" name="spec" ><input type="submit" value="Print" id="buttonPrint"  style="width: 100%" /></form><br /><br /><div id="printInProgress" style="display: none"><table><tr><td align="center"><img src="../img/loading.gif" alt="loading"></img></td><td style="font-size: 20px">Print in progress.</td></tr></table></div><div id="printResult" style="display: none"><table><tr><td style="font-size: 20px;text-decoration: underline;cursor: pointer"><a onclick="ligeo.modules[\'print\'].openPrint();">Open printed map</a></td></tr></table></div></div>');
+    
     this.title = function(){
         //todo taday zjistim lokalizaci 
         return "Print";

@@ -24,18 +24,19 @@ var adminURL;//ziskane z settings.php,
 
 
 
-function ligeoInit(){
-    ligeo = new LiGeo();
+function ligeoInit(plan){
+    ligeo = new LiGeo(plan);
 
     
 }
 
-function LiGeo(){
+function LiGeo(page){
     this.modulesTxt=new Array();
     this.userHash="";
     this.userName = "";
     
-    this.page= location.pathname.slice(location.pathname.lastIndexOf("/",location.pathname.lastIndexOf("/")-1)+1,location.pathname.lastIndexOf("/"));
+   // this.page= location.pathname.slice(location.pathname.lastIndexOf("/",location.pathname.lastIndexOf("/")-1)+1,location.pathname.lastIndexOf("/"));
+   this.page = page;
     this.namespace = "ligeo_"+this.page;
     this.baselayerNames = [];
     var that = this;
@@ -152,17 +153,7 @@ function LiGeo(){
     //this.modulesTxt = new Array("layers","info","legend","print","measurement","editor","biotopy","login");
 
     this.ligeoMap = new LiGeoMap(this);
-    
-    
-    /**
-     *load base layers
-     */
-
-    this.baselayers = new LiGeobaseLayers(this,this.baselayerNames);
-    /**
-     * end load base layers
-     */   
-    
+ 
    
     /**
      *definice funkci
@@ -206,6 +197,8 @@ function LiGeo(){
         htmlLi += '<li id="tabMenu'+this.modulesTxt[i]+'" onclick="ligeo.activate(\''+this.modulesTxt[i]+'\',false);" class="'+(i==0 ? 'active' : '')+'">'+this.modules[this.modulesTxt[i]].title()+'</li>';
     }
    
+    this.baselayers = new LiGeobaseLayers(this,this.baselayerNames);
+    
     document.getElementById("menuList").innerHTML = '<ul>'+htmlLi+'</ul>';
     htmlLi = "";
     

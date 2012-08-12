@@ -2,6 +2,8 @@
 function LiGeoabout(ligeo){
     this.name = "about";
     
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContentabout"></div>');
+    
     document.getElementById("tabMenuContentabout").innerHTML = ligeo.txt;
     
     this.title = function(){

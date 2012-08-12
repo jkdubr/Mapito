@@ -9,7 +9,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `contact`
 --
 
-DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
   `contactId` int(8) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
@@ -33,7 +32,6 @@ CREATE TABLE IF NOT EXISTS `contact` (
 -- Table structure for table `form`
 --
 
-DROP TABLE IF EXISTS `form`;
 CREATE TABLE IF NOT EXISTS `form` (
   `title` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   `txt` varchar(200) COLLATE utf8_czech_ci NOT NULL,
@@ -54,7 +52,6 @@ CREATE TABLE IF NOT EXISTS `form` (
 -- Table structure for table `formData`
 --
 
-DROP TABLE IF EXISTS `formData`;
 CREATE TABLE IF NOT EXISTS `formData` (
   `formId` int(8) NOT NULL,
   `userId` int(8) NOT NULL,
@@ -74,7 +71,6 @@ CREATE TABLE IF NOT EXISTS `formData` (
 -- Table structure for table `formElement`
 --
 
-DROP TABLE IF EXISTS `formElement`;
 CREATE TABLE IF NOT EXISTS `formElement` (
   `title` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   `name` varchar(30) COLLATE utf8_czech_ci NOT NULL,
@@ -96,7 +92,6 @@ CREATE TABLE IF NOT EXISTS `formElement` (
 -- Table structure for table `formItem`
 --
 
-DROP TABLE IF EXISTS `formItem`;
 CREATE TABLE IF NOT EXISTS `formItem` (
   `title` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -122,7 +117,6 @@ CREATE TABLE IF NOT EXISTS `formItem` (
 -- Table structure for table `layer`
 --
 
-DROP TABLE IF EXISTS `layer`;
 CREATE TABLE IF NOT EXISTS `layer` (
   `title` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   `url` varchar(100) COLLATE utf8_czech_ci NOT NULL,
@@ -174,7 +168,6 @@ INSERT INTO `layer` (`title`, `url`, `namespace`, `name`, `format`, `opacity`, `
 -- Table structure for table `layerCol`
 --
 
-DROP TABLE IF EXISTS `layerCol`;
 CREATE TABLE IF NOT EXISTS `layerCol` (
   `name` varchar(30) NOT NULL,
   `type` varchar(20) NOT NULL,
@@ -198,7 +191,6 @@ CREATE TABLE IF NOT EXISTS `layerCol` (
 -- Table structure for table `layerFolder`
 --
 
-DROP TABLE IF EXISTS `layerFolder`;
 CREATE TABLE IF NOT EXISTS `layerFolder` (
   `title` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   `txt` varchar(200) COLLATE utf8_czech_ci NOT NULL,
@@ -221,7 +213,6 @@ INSERT INTO `layerFolder` (`title`, `txt`, `planId`, `layerFolderId`, `basic`) V
 -- Table structure for table `layerStyle`
 --
 
-DROP TABLE IF EXISTS `layerStyle`;
 CREATE TABLE IF NOT EXISTS `layerStyle` (
   `title` varchar(30) NOT NULL,
   `layerStyleId` int(8) NOT NULL AUTO_INCREMENT,
@@ -246,7 +237,6 @@ CREATE TABLE IF NOT EXISTS `layerStyle` (
 -- Table structure for table `layerWPS`
 --
 
-DROP TABLE IF EXISTS `layerWPS`;
 CREATE TABLE IF NOT EXISTS `layerWPS` (
   `layerId` int(9) unsigned NOT NULL,
   `content` text NOT NULL
@@ -263,7 +253,6 @@ CREATE TABLE IF NOT EXISTS `layerWPS` (
 -- Table structure for table `log_login`
 --
 
-DROP TABLE IF EXISTS `log_login`;
 CREATE TABLE IF NOT EXISTS `log_login` (
   `userId` int(8) unsigned NOT NULL,
   `mail` varchar(50) NOT NULL,
@@ -285,7 +274,6 @@ CREATE TABLE IF NOT EXISTS `log_login` (
 -- Table structure for table `mobil_stat`
 --
 
-DROP TABLE IF EXISTS `mobil_stat`;
 CREATE TABLE IF NOT EXISTS `mobil_stat` (
   `user` varchar(50) NOT NULL COMMENT 'unikátní identifikátor uživatele',
   `sys` varchar(20) NOT NULL COMMENT 'mobilní systém na uživ. zařízení',
@@ -304,7 +292,6 @@ CREATE TABLE IF NOT EXISTS `mobil_stat` (
 -- Table structure for table `modul`
 --
 
-DROP TABLE IF EXISTS `modul`;
 CREATE TABLE IF NOT EXISTS `modul` (
   `title` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   `url` varchar(100) COLLATE utf8_czech_ci NOT NULL,
@@ -323,7 +310,6 @@ CREATE TABLE IF NOT EXISTS `modul` (
 -- Table structure for table `modulinplan`
 --
 
-DROP TABLE IF EXISTS `modulinplan`;
 CREATE TABLE IF NOT EXISTS `modulinplan` (
   `modulId` int(8) unsigned NOT NULL,
   `planId` int(8) unsigned NOT NULL,
@@ -341,7 +327,6 @@ CREATE TABLE IF NOT EXISTS `modulinplan` (
 -- Table structure for table `plan`
 --
 
-DROP TABLE IF EXISTS `plan`;
 CREATE TABLE IF NOT EXISTS `plan` (
   `name` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   `txt` varchar(200) COLLATE utf8_czech_ci NOT NULL,
@@ -369,7 +354,6 @@ INSERT INTO `plan` (`name`, `txt`, `ico`, `planId`, `title`, `mapCenterLat`, `ma
 -- Table structure for table `privilege`
 --
 
-DROP TABLE IF EXISTS `privilege`;
 CREATE TABLE IF NOT EXISTS `privilege` (
   `userId` int(8) unsigned NOT NULL,
   `planId` int(8) unsigned NOT NULL,
@@ -392,7 +376,6 @@ INSERT INTO `privilege` (`userId`, `planId`, `privilege`, `dateFrom`, `dateTo`) 
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `title` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   `mail` varchar(50) COLLATE utf8_czech_ci NOT NULL,
@@ -419,7 +402,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Table structure for table `userreset`
 --
 
-DROP TABLE IF EXISTS `userreset`;
 CREATE TABLE IF NOT EXISTS `userreset` (
   `key` varchar(50) COLLATE utf8_czech_ci NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

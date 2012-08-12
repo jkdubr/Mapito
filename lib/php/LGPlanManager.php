@@ -49,8 +49,8 @@ class LGPlanManager {
 
                 $layerManager = new LGLayerManager($this->user);
                 $layerManager->addLayerFolderBasic($planId);
- 
-               $pg = pg_connect("host=" . $GLOBALS["LGSettings"]->postgis_host . " dbname=" . $GLOBALS["LGSettings"]->postgis_template . " user=" . $GLOBALS["LGSettings"]->postgis_user . " password=" . $GLOBALS["LGSettings"]->postgis_pass . "");
+
+                $pg = pg_connect("host=" . $GLOBALS["LGSettings"]->postgis_host . " dbname=" . $GLOBALS["LGSettings"]->postgis_template . " user=" . $GLOBALS["LGSettings"]->postgis_user . " password=" . $GLOBALS["LGSettings"]->postgis_pass . "");
 
                 if (!$pg) {
 
@@ -61,10 +61,8 @@ class LGPlanManager {
 
                 pg_query($pg, $sql);
 
-            //    $sql = "GRANT ALL ON DATABASE ligeo_" . $planName . " TO GROUP ligeo_user;";
-
-              //  pg_query($pg, $sql);
-
+                //    $sql = "GRANT ALL ON DATABASE ligeo_" . $planName . " TO GROUP ligeo_user;";
+                //  pg_query($pg, $sql);
 //GRANT ALL ON DATABASE ligeo_r TO GROUP ligeo_user;                
 // close connection
                 pg_close($pg);
@@ -73,20 +71,19 @@ class LGPlanManager {
                 $this->geoserverAPI->api->createWorkspace($gsName);
                 $this->geoserverAPI->api->createDatastore($gsName, $gsName);
 
-                
-                $cd = getcwd();
-                chdir(dirname(__FILE__));
-                
-                if (is_dir("../../module/viewer")) {
-                    mkdir('../../module/viewer/' . $planName);
-                    copy('../../data/plan.template.html', '../../module/viewer/' . $planName . '/index.html');
-                    if ($_FILES["fileSplashscreen"]["tmp_name"])
-                        $this->uploadSplashscreen($_FILES["fileSplashscreen"], $planName);
-                }
-                
+                /*
+                  $cd = getcwd();
+                  chdir(dirname(__FILE__));
 
-                chdir($cd);
+                  if (is_dir("../../module/viewer")) {
+                  mkdir('../../module/viewer/' . $planName);
+                  copy('../../data/plan.template.html', '../../module/viewer/' . $planName . '/index.html');
+                  if ($_FILES["fileSplashscreen"]["tmp_name"])
+                  $this->uploadSplashscreen($_FILES["fileSplashscreen"], $planName);
+                  }
 
+                  chdir($cd);
+                 */
 
 
                 return $planId;

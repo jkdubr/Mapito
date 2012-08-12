@@ -4,6 +4,11 @@ function LiGeobiotopy(ligeo){
     this.panel;
      var layerName="biotopy2";
     
+    
+    
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContentbiotopy"><form><INPUT type="button" value="Hospodářská hodnota" onClick="ligeo.modules[\'biotopy\'].hosp()"><INPUT type="button" value="Společenská hodnota" onClick="ligeo.modules[\'biotopy\'].spol()"></form><div id="biotopyGfiContent"/></div>');
+    
+    
     this.title = function(){
         //todo taday zjistim lokalizaci 
         return "biotopy";

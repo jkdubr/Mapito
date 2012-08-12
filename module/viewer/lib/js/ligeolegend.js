@@ -6,6 +6,8 @@
 function LiGeolegend(ligeo){
     this.name = "legend";
     
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContentlegend"></div>');
+    
     this.title = function(){
         //todo taday zjistim lokalizaci 
         return "Legend";

@@ -150,7 +150,7 @@ $GLOBALS["LGSettings"] = new LGSettings();
             }
         } while ($con->next_result());
 
-        echo(mysqli_error($con));
+        //echo(mysqli_error($con));
 
         //exit("kuk");
         mydb_query('insert user set privilege=6,mail="' . $GLOBALS["LGSettings"]->mail . '",password="' . $GLOBALS["LGSettings"]->mail . '",title="' . $GLOBALS["LGSettings"]->mail . '";');

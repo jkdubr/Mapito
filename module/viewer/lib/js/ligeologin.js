@@ -2,6 +2,8 @@ function LiGeologin(ligeo){
     var ligeo = ligeo;
     this.name = "login";
     
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContentlogin"><fieldset><form action="" method="GET" onsubmit="return ligeo.login(document.getElementById(\'f_login\').value, document.getElementById(\'f_password\').value);">  <label for="f_login">Login</label><br /><input type="text" placeholder="Login" id="f_login" name="login" style="width: 150px"></input><br /><label for="f_password">Password</label><br /><input type="password" placeholder="Password" id="f_password" name="password" style="width: 150px"></input><br /><input type="submit" value="Login"  style="width: 150px"></input></form></fieldset></div>');
+    
     this.title = function(){
         //todo taday zjistim lokalizaci 
         return "Login";

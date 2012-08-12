@@ -1,6 +1,9 @@
 function LiGeolayers(ligeo){
     this.name = "layers";
     this.tabMenuContent = "";
+    
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContentlayers"><div><strong>Base layers</strong><form id="baseLayers"></form><br/><br/></div><label for="LayerTreeSearch">Search:</label>  <input type="search" id="LayerTreeSearch" placeholder="Search"></input><br/><br/><div id="LayerTree" class="demo"></div></div>');
+    
     this.title = function(){
         //todo taday zjistim lokalizaci 
         return "Layers";
