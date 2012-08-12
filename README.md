@@ -15,11 +15,13 @@ Mapito is available at (https://github.com/jkdubr/Mapito) .
 PHP, MySQL, PostGIS, Geoserver
 
 
-create PostGIS template database in PostGIS - template database generally created by the Postgis installer to ease the process of  creating Postgis-enabled databases.
+Create PostGIS template database in PostGIS - template database generally created by the Postgis installer to ease the process of  creating Postgis-enabled databases.
 
-set chmod for Mapito folder - linux: sudo chmod -R 755 /
+Set chmod for Mapito folder - linux: sudo chmod -R 755 /
 
-install CURL for PHP - ubuntu: apt-get install php5-curl
+Install CURL for PHP - ubuntu: apt-get install php5-curl
+
+Enabled .htaccess
 
 
 
