@@ -60,7 +60,7 @@
                 <form action="action/plan_update.php" method="POST"  enctype="multipart/form-data" data-ajax="false">
                     <input type="hidden" name="planId" value="<?php echo($planId); ?>">
                     <div data-role="fieldcontain">
-                        <a href="<?php echo($LGSettings->map_url . $plan->name); ?>" target="_blank"  rel="external" data-ajax="false" >Go to map</a>
+                        <a href="<?php echo($LGSettings->map_url . $plan->name . "/"); ?>" target="_blank"  rel="external" data-ajax="false" >Go to map</a>
                     </div>
 
                     <div data-role="fieldcontain">
