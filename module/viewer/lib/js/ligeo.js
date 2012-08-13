@@ -9,7 +9,7 @@
  * 2/ pokud TRUE - uloz hash (login + koreni + heslo) do cookies A reload web
  * 3/ pri nacitani webu v init overim zda je uvivatel prihlasen (ulozen cookies? -> odeslu na srvr zda hash je spravny)
  * 
-*/
+ */
 //document.write('<script type="text/javascript" src="lib/js/menu.js"></script>');
 
 var ligeo = null;
@@ -35,8 +35,8 @@ function LiGeo(page){
     this.userHash="";
     this.userName = "";
     
-   // this.page= location.pathname.slice(location.pathname.lastIndexOf("/",location.pathname.lastIndexOf("/")-1)+1,location.pathname.lastIndexOf("/"));
-   this.page = page;
+    // this.page= location.pathname.slice(location.pathname.lastIndexOf("/",location.pathname.lastIndexOf("/")-1)+1,location.pathname.lastIndexOf("/"));
+    this.page = page;
     this.namespace = "ligeo_"+this.page;
     this.baselayerNames = [];
     var that = this;
@@ -54,7 +54,7 @@ function LiGeo(page){
             this.modulesTxt = data.viewer_modules;
     alert("aaaweeew"+this.modulesTxt.length);
         }, "json");
-    */
+     */
     var modulesTxt;
     $.ajax({
         type: 'GET',
@@ -321,7 +321,7 @@ function LiGeoMap(ligeo) {
     }); 
 
     var g =  new OpenLayers.Format.JSON(); 
-    var data = g.read(res.responseText); 
+    this.data = g.read(res.responseText); 
     
       
     this.planLayers = new Array();
@@ -345,50 +345,50 @@ function LiGeoMap(ligeo) {
  
 
  
-    for(var i = 0; i < data.length; i++)
+    for(var i = 0; i < this.data.length; i++)
     {
-        if(data[i].children)
-            for(var j = 0; j<data[i].children.length; j++){
+        if(this.data[i].children)
+            for(var j = 0; j<this.data[i].children.length; j++){
              
-                if(data[i].children[j].attr.id){
+                if(this.data[i].children[j].attr.id){
                     //todo title a jestli muzu editovat
                     var metadata = 
                     {
-                        "type":data[i].children[j].type,
-                        "legendImage":data[i].children[j].legendImage.replace("\\/", "/"),
-                        "inLegend":data[i].children[j].inLegend,
-                        "queryable":data[i].children[j].queryable,
+                        "type":this.data[i].children[j].type,
+                        "legendImage":this.data[i].children[j].legendImage.replace("\\/", "/"),
+                        "inLegend":this.data[i].children[j].inLegend,
+                        "queryable":this.data[i].children[j].queryable,
                         
-                        "printable":data[i].children[j].printable,
-                        "layerStyleId":data[i].children[j].layerStyleId,
-                        "layerId":data[i].children[j].layerId,
-                        "isLockedForGeometry":data[i].children[j].isLockedForGeometry
+                        "printable":this.data[i].children[j].printable,
+                        "layerStyleId":this.data[i].children[j].layerStyleId,
+                        "layerId":this.data[i].children[j].layerId,
+                        "isLockedForGeometry":this.data[i].children[j].isLockedForGeometry
         
                     }
                     
-                    if(data[i].children[j].type == "xyz"){
-                        var layer = new OpenLayers.Layer.XYZ(data[i].children[j].attr.id, data[i].children[j].url, {
+                    if(this.data[i].children[j].type == "xyz"){
+                        var layer = new OpenLayers.Layer.XYZ(this.data[i].children[j].attr.id, this.data[i].children[j].url, {
                             transitionEffect: 'resize',
                             
                             metadata: metadata,
-                            opacity: data[i].children[j].opacity,
-                            visibility: (data[i].children[j].visibility==1),
+                            opacity: this.data[i].children[j].opacity,
+                            visibility: (this.data[i].children[j].visibility==1),
                             isBaseLayer: false
                         });
                     }else{
-                        var layer = new OpenLayers.Layer.WMS(data[i].children[j].data, data[i].children[j].url,
+                        var layer = new OpenLayers.Layer.WMS(this.data[i].children[j].data, this.data[i].children[j].url,
                         {
-                            layers:data[i].children[j].attr.id,
-                            format:data[i].children[j].format,
-                            palette:data[i].children[j].palette,
-                            transparent: data[i].children[j].transparent,
-                            id:data[i].children[j].attr.id,
-                            name:data[i].children[j].data
+                            layers:this.data[i].children[j].attr.id,
+                            format:this.data[i].children[j].format,
+                            palette:this.data[i].children[j].palette,
+                            transparent: this.data[i].children[j].transparent,
+                            id:this.data[i].children[j].attr.id,
+                            name:this.data[i].children[j].data
                         },
                         {
                             metadata: metadata,
-                            opacity: data[i].children[j].opacity,
-                            visibility: (data[i].children[j].visibility==1),
+                            opacity: this.data[i].children[j].opacity,
+                            visibility: (this.data[i].children[j].visibility==1),
                             singleTile: true,
                             isBaseLayer: false,
                             buffer: 0,
@@ -401,12 +401,12 @@ function LiGeoMap(ligeo) {
       
                 
                     this.planLayers.push(layer);
-                    this.planLayersName.push(data[i].children[j].attr.id);
-                    if (data[i].children[j].queryable=="1") {
+                    this.planLayersName.push(this.data[i].children[j].attr.id);
+                    if (this.data[i].children[j].queryable=="1") {
                         this.queryableLayers.push(layer);
                     };
-                    this.zIndexLayers.push(data[i].children[j].zIndex);
-                    if (data[i].children[j].printable=="1") {
+                    this.zIndexLayers.push(this.data[i].children[j].zIndex);
+                    if (this.data[i].children[j].printable=="1") {
                         this.printableLayers.push(layer);
                     };
                     
@@ -416,9 +416,9 @@ function LiGeoMap(ligeo) {
             } 
     }
     
-    if(this.planLayers.length)
+    if(this.planLayers.length){
         this.map.setCenter(this.point, this.zoom);
-    
+    }
     //pruhlednost spatne nactenych vrstev a tilu 
 
     OpenLayers.IMAGE_RELOAD_ATTEMPTS = 2;
@@ -440,104 +440,12 @@ function LiGeoMap(ligeo) {
         });
     });
                  
-                 
-                 
-    $(function () {
-      
-        $("#LayerTree").jstree({
-                            
-                 
-            "json_data" : {
-                "data" :data   
-            },
-            "crrm" : { 
-                "move" : {
-                    "check_move" : function (m) { 
-                        var p = this._get_parent(m.o);
-                        if(!p) return false;
-                        p = p == -1 ? this.get_container() : p;
-                        if(p === m.np) return true;
-                        if(p[0] && m.np[0] && p[0] === m.np[0]) return true;
-                        return false;
-                    }
-                }
-            },
-            "dnd" : {
-                "drop_target" : false,
-                "drag_target" : false
-            },
-
-            hotkeys: {
-                "del" : function () {
-                    return false;
-                }
-            },
-            
-            checkbox:{
-                "override_ui": true
-            },
-
-                            
-            "themes": {
-                "theme": "default",
-                "dots": true,
-                "icons": true
-            },
-                    
-            "types" : {
-                "valid_children" : "all",
-                "types" : {
-                    "root" : {
-                        "icon" : { 
-                            "image" : "http://static.jstree.com/v.1.0rc/_docs/_drive.png" 
-                        },
-                        "valid_children" : [ "default" ],
-                        "max_depth" : 1,                    
-                        "delete_node"	: function(){
-                            alert("Složku nelze smazat");
-                            return false;
-                        }
-                    
-                    },
-                    "default" : {
-                                          
-                        "valid_children" : [ "default" ],
-                        "max_depth" : 0
-                    }
-                }
-            },
-                
-                
-   
-            //dalsi: ,contextmenu,dnd
-            "plugins" : ["themes","ui","crrm","hotkeys","search","types","json_data","checkbox"]
-		
-      
-        })
-                        
     
-        .bind("loaded.jstree", function () {
-
-            })
-                     
-        .bind("check_node.jstree uncheck_node.jstree", function () {
-         
-                           
-                   
-            for(var i =0;i<$.jstree._focused().get_checked(null,true).length ;i++){
-                if($($.jstree._focused().get_checked(null,true)[i]).attr("id")){
-                    ligeo.ligeoMap.planLayers[ligeo.ligeoMap.planLayersName.indexOf($($.jstree._focused().get_checked(null,true)[i]).attr("id"))].setVisibility(true);
-                }
-            }
-                                                   
-            for(var i =0;i<$.jstree._focused().get_unchecked(null,true).length ;i++){ 
-                if($($.jstree._focused().get_unchecked(null,true)[i]).attr("id")){
-                    ligeo.ligeoMap.planLayers[ligeo.ligeoMap.planLayersName.indexOf($($.jstree._focused().get_unchecked(null,true)[i]).attr("id"))].setVisibility(false);
-                }
-            }
-        })               
-    });
-       
+    //  $(function () {
+      
+                 
+    //   });
+    
     // LAYER TREE KONEC
     
     
@@ -737,13 +645,13 @@ function LiGeoMap(ligeo) {
  Conversions between various (czech) coordinate systems.
  Based on various codes, see comments.
  Put together and modified by Tomas Ebenlendr (ebik@ucw.cz)
-     */
+ */
 
     this.convertCoord = {
         /*
  =============================== BASICS =============================
     Does basic conversions between radians and degrees,dm,dms format.
-         */
+     */
 
         // =====
         // degrees -> radians
@@ -900,7 +808,7 @@ function LiGeoMap(ligeo) {
 
     modified by Tomas Ebenlendr
     ebik@ucw.cz
-         */
+     */
 
 
         // =====
@@ -1142,7 +1050,7 @@ function LiGeoMap(ligeo) {
 
     javascripted by Tomas Ebenlendr
     ebik@ucw.cz
-         */
+     */
 
         // =====
         // S42 datum
@@ -1230,7 +1138,7 @@ function LiGeoMap(ligeo) {
                     - Math.sin(2*fi0)*t2
                     + Math.sin(4*fi0)*t3
                     - Math.sin(6*fi0)*t4);
-                 */
+             */
                 var M0 = 0;
                 var M = M0 + y/k0;
                 var mu = M / (a * t1);
@@ -1267,7 +1175,7 @@ function LiGeoMap(ligeo) {
             '\n' +
             'fi:' + fi + '\n' +
             'lambda:' + lambda);
-                 */
+             */
                 return {
                     fi:fi, 
                     lambda:lambda
@@ -1338,7 +1246,7 @@ function LiGeoMap(ligeo) {
             'x:' + x + '\n' +
             'y:' + y + '\n' +
             'FE:' + FE);
-                 */
+             */
                 return {
                     Y: FN + y, 
                     X: FE + x
@@ -1358,7 +1266,7 @@ function LiGeoMap(ligeo) {
     (The functions are inconsistent by 2'' at Portugal for zone 33)
     (I know Portugal is zone 30, but mapy.seznam.cz maps are whole in zone 33)
     Based on code from mapy.seznam.cz.
-         */
+     */
 
         // =====
         // accepts x, y in mapy.seznam.cz
