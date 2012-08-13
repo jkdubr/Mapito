@@ -21,7 +21,7 @@ Set chmod for Mapito folder - linux: sudo chmod -R 755 /
 
 Install CURL for PHP - ubuntu: apt-get install php5-curl
 
-Enabled .htaccess
+Enabled .htaccess - http://www.joeldare.com/wiki/linux:using_.htaccess_on_ubuntu
 
 
 
