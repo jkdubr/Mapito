@@ -256,7 +256,7 @@ $mapito_viewer_modules = file_get_contents("../module/viewer/settings/mapito_vie
                                 <p>
                                     Available modules: 
                                     <i>
-                                        layers, info, legend, print, edit, measurement, login
+                                        layers, info, legend, print, editor, measurement, login
                                     </i>
                                 </p>
                             </fieldset>

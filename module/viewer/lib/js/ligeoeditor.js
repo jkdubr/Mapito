@@ -5,9 +5,9 @@ function LiGeoeditor(ligeo){
     var ligeo = ligeo;
     this.name = "editor";
     this.panel;
+    that = this;    
     
-    
-    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContenteditor"><form onsubmit="return ligeo.modules[\'editor\'].addLayer(document.getElementById(\'tabMenuContenteditorTitle\').value,document.getElementById(\'tabMenuContenteditorType\').value);"><input id="tabMenuContenteditorTitle" type="text" placeholder="Layer name" name="title" /><select name="type" id="tabMenuContenteditorType"><option value="POINT">Point</option><option value="MULTIPOLYGON">Polygon</option><option value="LINESTRING">Line</option></select><input type="submit" value="Save" /></form><div id="editingPanel" class="olControlEditingToolbar"></div><fieldset><select onchange="ligeo.modules[\'editor\'].editLayer(this.value);" id="tabMenuContenteditorSelect"><option>== Layers ==</option></select></fieldset></div>');
+    $("#tabMenuContent").append('<div class="tabMenuContent" id="tabMenuContenteditor"><form onsubmit="return ligeo.modules[\'editor\'].addLayer(document.getElementById(\'tabMenuContenteditorTitle\').value,document.getElementById(\'tabMenuContenteditorType\').value);"><input id="tabMenuContenteditorTitle" type="text" placeholder="Layer name" name="title" /><select name="type" id="tabMenuContenteditorType"><option value="POINT">Point</option><option value="MULTIPOLYGON">Polygon</option><option value="LINESTRING">Line</option></select><input type="submit" value="Save" /></form><div id="editingPanel" class="olControlEditingToolbar"></div><fieldset><select onchange="ligeo.modules[\'editor\'].editLayer(this.value);" id="tabMenuContenteditorSelect"><option value="0">== Layers ==</option></select></fieldset></div>');
     
     
     this.title = function(){
@@ -35,7 +35,7 @@ function LiGeoeditor(ligeo){
             selectbox.remove(0);
         }
         
-        selectbox.add(new Option("== Layers ==", ""), null); 
+        selectbox.add(new Option("== Layers ==", "0"), null); 
         
         for(var i =0;i<ligeo.ligeoMap.planLayersName.length;i++){
             if(ligeo.ligeoMap.planLayers[i].metadata.isLockedForGeometry == "0"){
@@ -50,15 +50,46 @@ function LiGeoeditor(ligeo){
     }
     
     this.deactivate = function(){
-        if(this.panel)
-            this.panel.deactivate();
+        //console.log($("olControlEditingToolbar").html());
+        that.restartEditSelectbox();
+        //console.log($("#editingPanel").html());
+        if(that.panel)
+        {
+            that.panel.deactivate();
+        //console.log(that.panel);
+        }
+        
         //alert("aaa"+this.)
         this.tabMenuContent = document.getElementById("tabMenuContent"+this.name).style.display="none"; 
-        if(wfs)
-            wfs.removeAllFeatures();
+
+    //$("olControlEditingToolbar").empty();
+    
+        
+    //console.log(ligeo.ligeoMap.planLayers[ligeo.ligeoMap.planLayersName.indexOf("wfs-edit")])
     }
+
+    $("#tabMenuContenteditorSelect").change(function() { 
+        if ($("#tabMenuContenteditorSelect").val()=="0")
+        {
+            $("#editingPanel").hide();
+        }
+        else{
+            $("#editingPanel").show();
+        }
+    });
+
     
-    
+    this.restartEditSelectbox = function(){
+        //console.log(wfs)
+        if(wfs){
+            wfs.destroyFeatures()
+        // wfs.destroy();
+        }
+        $("#tabMenuContenteditorSelect").val(0);
+        $("#editingPanel").hide();
+
+            
+    }
     
     this.addLayer = function(tname, ttype){ 
         if(!tname || ! ttype){
@@ -80,45 +111,31 @@ function LiGeoeditor(ligeo){
             return false;
         }, "json");
         
-         return false;
+        return false;
     }
     
     
     this.editLayer = function(wfsLayer){
-        
-        //if(wfs)
-        //  wfs.destroy();
-        
+      
         for(var i =0;i<ligeo.ligeoMap.planLayersName.length;i++){
-            
-            
-            //alert(wfsLayer +" z "+ligeo.ligeoMap.planLayersName[i]+" s "+ligeo.ligeoMap.planLayers[i].metadata.type)
             if(ligeo.ligeoMap.planLayersName[i] ==  ligeo.namespace +":"+wfsLayer){
                 wfsLayerType = ligeo.ligeoMap.planLayers[i].metadata.type;
             }   
         }
-        
-        
-      
-        
-        //var wfsLayer = "byst";
-        wfsUriLayer = ligeo.namespace+"_uri"; 
- 
- 
- 
            
-           var saveStrategy = new OpenLayers.Strategy.Save();
+        var saveStrategy = new OpenLayers.Strategy.Save();
         saveStrategy.events.register('success', null, saveSuccess);
         saveStrategy.events.register('fail', null, saveFail);
         
         function saveSuccess(event) {
             alert('Changes saved')
-            wfs.removeAllFeatures();
-            
+            //wfs.removeAllFeatures();
+            that.restartEditSelectbox()
         }
         function saveFail(event) {
             alert('Error! Changes not saved');
-            wfs.removeAllFeatures();
+            //wfs.removeAllFeatures();
+            that.restartEditSelectbox()
             
         } 
         if(wfs)
@@ -128,14 +145,20 @@ function LiGeoeditor(ligeo){
            wfs = new OpenLayers.Layer.Vector("WFS", {
                    strategies: [new OpenLayers.Strategy.BBOX(), saveStrategy], //casem pouzit new OpenLayers.Strategy.Fixed()
                    projection: new OpenLayers.Projection("EPSG:4326"),
+            styleMap: new OpenLayers.StyleMap({
+                pointRadius: 10,
+                fillColor: "red",
+                fillOpacity: 0.7,
+                strokeColor: "black"
+            }),
                    protocol: new OpenLayers.Protocol.WFS({
-                           url: wfsu,
+                url: wfsu,
                            featureType: wfsLayer,
-                           featureNS :  wfsUriLayer,
+                           featureNS :  "http://www.mapito.org/ligeo_" + ligeo.page,
                            srsName: "EPSG:4326",
                            geometryName: "the_geom",
                            version: "1.1.0",
-                          extractAttributes: true
+                           extractAttributes: true
                        }),
                    visibility:true
            });
@@ -143,8 +166,8 @@ function LiGeoeditor(ligeo){
         
         ligeo.ligeoMap.map.addLayer(wfs);
         wfs.refresh()
-        
-
+   
+   
         var highlightCtrl = new OpenLayers.Control.SelectFeature(wfs, {
             hover: true,
             highlightOnly: true,
@@ -258,15 +281,10 @@ function LiGeoeditor(ligeo){
             displayClass: "olControlSaveFeatures",
             div:container
         });
-        
-        
-        
-        
+         
         this.panel.addControls([  new OpenLayers.Control.Navigation({
             div:container
         }),save,del,modify,draw]);
-        
-        
         
         // Definimos el control de navegaciÃ³n como el activo por defecto
         this.panel.defaultControl = this.panel.controls[0];
@@ -274,22 +292,7 @@ function LiGeoeditor(ligeo){
         
     }
 
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
 
 //set up the modification tools
 var DeleteFeature = OpenLayers.Class(OpenLayers.Control, {
@@ -322,38 +325,3 @@ var DeleteFeature = OpenLayers.Class(OpenLayers.Control, {
     },
     CLASS_NAME: "OpenLayers.Control.DeleteFeature"
 });
-
-
-/*        
-        
-var DeleteFeature = OpenLayers.Class(OpenLayers.Control, {
-    initialize: function(layer, options) {
-        OpenLayers.Control.prototype.initialize.apply(this, [options]);
-        this.layer = layer;
-        this.handler = new OpenLayers.Handler.Feature(
-            this, layer, {
-                click: this.clickFeature
-            }
-            );
-    },
-    clickFeature: function(feature) {
-        // sÃ­ no tiene fid eliminarlo
-        if(feature.fid == undefined) {
-            this.layer.destroyFeatures([feature]);
-        } else {
-            feature.state = OpenLayers.State.DELETE;
-            this.layer.events.triggerEvent("afterfeaturemodified",
-            {
-                feature: feature
-            });
-            feature.renderIntent = "select";
-            this.layer.drawFeature(feature);
-        }
-    },
-    setMap: function(map) {
-        this.handler.setMap(map);
-        OpenLayers.Control.prototype.setMap.apply(this, arguments);
-    },
-    CLASS_NAME: "OpenLayers.Control.DeleteFeature"
-});
-*/

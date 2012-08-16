@@ -28,10 +28,11 @@ class GeoserverAPI {
         $this->rest = new LGRestClient($root_url, $user_name, $password);
     }
 
-    function createWorkspace($name) {
-        $temp->workspace->name = $name;
+     function createWorkspace($name) {
+        $temp->namespace->prefix = $name;
+        $temp->namespace->uri = "http://www.mapito.org/".$name;
         
-        $this->rest->createRequest('workspaces', 'POST', json_encode($temp), 'json', array("Accept:application/json"));
+        $this->rest->createRequest('namespaces', 'POST', json_encode($temp), 'json', array("Accept:application/json"));
         return $this->rest->sendRequest();
     }
 

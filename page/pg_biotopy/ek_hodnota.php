@@ -1,8 +1,8 @@
 <?php
+
 require_once '../../lib/php/main.lib.php';
 
 //returns an array with infos of every field in the table (name, type, length, size)
-
 
 $user = new LGUser();
 $planManager = new LGPlanManager($user);
@@ -13,12 +13,14 @@ if ($user->getPrivilegeForPlan($plan->planId) > 1)
     $dbname = 'ligeo_' . $plan->name;
 $dbtab = $_GET["dbtab"];
 
+
 if ($plan->name) {
 
     $pgsql_conn = pg_connect("host=" . $GLOBALS["LGSettings"]->postgis_host . " dbname=" . $dbname . " user=" . $GLOBALS["LGSettings"]->postgis_user . " password=" . $GLOBALS["LGSettings"]->postgis_pass . "");
     if (!$pgsql_conn) {
         die("Error in connection: " . pg_last_error());
     }
+    pg_query($pgsql_conn, "SET NAMES 'utf8'");
 }
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">

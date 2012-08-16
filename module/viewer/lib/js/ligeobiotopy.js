@@ -67,7 +67,7 @@ function LiGeobiotopy(ligeo){
             dataType: 'json',
             success: function(data) {
                 document.getElementById("biotopyGfiContent").innerHTML= data.name + " "+ data.kod;
-                document.getElementById("biotopyGfiContent").innerHTML += "(<a target='_blank' href='http://admin.mapy.mostar.cz/page/pg_biotopy/ek_hodnota.php?planId="+ligeo.planId+"&dbtab="+layerName+"&pgItem="+data.gid+"&userHash="+ligeo.userHash+"#pgItem_"+data.gid+"'>edit</a>)";
+                document.getElementById("biotopyGfiContent").innerHTML += "(<a target='_blank' href="+adminURL+"page/pg_biotopy/ek_hodnota.php?planId="+ligeo.planId+"&dbtab="+layerName+"&pgItem="+data.gid+"&userHash="+ligeo.userHash+"#pgItem_"+data.gid+"'>edit</a>)";
                 
             },
             data: {},
