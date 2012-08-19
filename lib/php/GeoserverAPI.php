@@ -19,20 +19,26 @@ class GeoserverAPI {
      * @var LGRestClient
      */
     private $rest;
-    
 
     public function __construct($root_url, $user_name, $password) {
 
-        
+
 
         $this->rest = new LGRestClient($root_url, $user_name, $password);
     }
 
-     function createWorkspace($name) {
-        $temp->namespace->prefix = $name;
-        $temp->namespace->uri = "http://www.mapito.org/".$name;
+    function createWorkspace($name) {
+        $temp1->namespace->prefix = $name;
+        $temp1->namespace->uri = "http://www.mapito.org/" . $name;
+
+       
+        $this->rest->createRequest('namespaces', 'POST', json_encode($temp1), 'json', array("Accept:application/json"));
+
+        $this->rest->sendRequest();
         
-        $this->rest->createRequest('namespaces', 'POST', json_encode($temp), 'json', array("Accept:application/json"));
+        $temp2->workspace->name = $name;
+        $this->rest->createRequest('workspaces', 'POST', json_encode($temp2), 'json', array("Accept:application/json"));
+
         return $this->rest->sendRequest();
     }
 
@@ -89,7 +95,7 @@ class GeoserverAPI {
         return json_decode($this->rest->sendRequest());
     }
 
-    function createLayer($workspaceName, $datastoreName, $layerName, $layerTitle, $layerSrs="EPSG:4326") {
+    function createLayer($workspaceName, $datastoreName, $layerName, $layerTitle, $layerSrs = "EPSG:4326") {
 
         $temp->featureType->name = $layerName;
         $temp->featureType->nativeName = $layerName;
@@ -133,7 +139,7 @@ class GeoserverAPI {
     }
 
     function reloadServer() {
-        $this->rest->createRequest('reload',"POST");
+        $this->rest->createRequest('reload', "POST");
         return $this->rest->sendRequest();
     }
 

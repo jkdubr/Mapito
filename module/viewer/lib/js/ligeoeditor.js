@@ -142,7 +142,7 @@ function LiGeoeditor(ligeo){
             wfs.destroyFeatures()
 
            //wfs-t editable overlay
-           wfs = new OpenLayers.Layer.Vector("WFS", {
+        /*    wfs = new OpenLayers.Layer.Vector("WFS", {
                    strategies: [new OpenLayers.Strategy.BBOX(), saveStrategy], //casem pouzit new OpenLayers.Strategy.Fixed()
                    projection: new OpenLayers.Projection("EPSG:4326"),
             styleMap: new OpenLayers.StyleMap({
@@ -152,17 +152,76 @@ function LiGeoeditor(ligeo){
                 strokeColor: "black"
             }),
                    protocol: new OpenLayers.Protocol.WFS({
-                url: wfsu,
+                           url: wfsu,
                            featureType: wfsLayer,
                            featureNS :  "http://www.mapito.org/ligeo_" + ligeo.page,
                            srsName: "EPSG:4326",
                            geometryName: "the_geom",
                            version: "1.1.0",
-                           extractAttributes: true
+                            outputFormat:"GML2",
+                           extractAttributes: false
                        }),
                    visibility:true
            });
-        
+        */
+       
+       
+        protocol = new OpenLayers.Protocol.WFS({
+            url: wfsu,
+                       featureType: wfsLayer,
+                       featureNS :  "http://www.mapito.org/ligeo_" + ligeo.page,
+                       srsName: "EPSG:4326",
+                       geometryName: "the_geom",
+                       version: "1.0.0",
+//            outputFormat:"GML2",
+                       extractAttributes: false
+        });
+
+        wfs = new OpenLayers.Layer.Vector("WFS", {
+                   strategies: [new OpenLayers.Strategy.BBOX(), saveStrategy], //casem pouzit new OpenLayers.Strategy.Fixed()
+            protocol: protocol,
+                   projection: new OpenLayers.Projection("EPSG:4326"),
+            styleMap: new OpenLayers.StyleMap({
+                pointRadius: 10,
+                fillColor: "red",
+                fillOpacity: 0.7,
+                strokeColor: "black"
+            }),
+             visibility:true
+        });
+
+        var _Callback = function(resp) {
+            console.log(resp);
+            //console.log(resp.error);
+
+            try {
+                var gmlOptions = {
+                    featureType: "feature",
+                    featureNS: "http://www.mapito.org/ligeo_" + ligeo.page
+                };
+                var gmlOptionsIn = OpenLayers.Util.extend(
+                    OpenLayers.Util.extend({}, gmlOptions)
+                    );
+
+                var gmlParser = new OpenLayers.Format.GML(gmlOptionsIn);
+                gmlParser.extractAttributes = true;
+                //var features = gmlParser.read(resp.features);
+                var features = gmlParser.read(resp.priv.responseText);
+                console.log(resp.priv.responseText);
+                console.log(wfs);
+            //wfs.addFeatures(resp.features);
+            
+                
+                
+            } catch(e) {
+                alert("Error: " + e);
+            }
+        };
+
+        response = protocol.read({
+            maxFeatures: 100,
+            callback: _Callback
+        });
         
         ligeo.ligeoMap.map.addLayer(wfs);
         wfs.refresh()
