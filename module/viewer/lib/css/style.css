@@ -238,6 +238,17 @@ div.olControlDeleteFeatureItemInactive {
     background-position: 0px 1px;
 }
 
+div .olControlModifyFeatureItemActive { 
+    background-image: url(../../img/move_feature_on.png);
+    background-repeat: no-repeat;
+    background-position: 0px 1px;
+}
+div .olControlModifyFeatureItemInactive { 
+    background-image: url(../../img/move_feature_off.png);
+    background-repeat: no-repeat;
+    background-position: 0px 1px;
+}
+
 .olHandlerBoxZoomBox {
     border: 2px solid red;
     position: absolute;

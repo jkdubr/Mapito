@@ -50,28 +50,14 @@ function LiGeoeditor(ligeo){
     }
     
     this.deactivate = function(){
-        //console.log($("olControlEditingToolbar").html());
-        that.restartEditSelectbox();
-        //console.log($("#editingPanel").html());
-        if(that.panel)
-        {
-            that.panel.deactivate();
-        //console.log(that.panel);
-        }
-        
-        //alert("aaa"+this.)
         this.tabMenuContent = document.getElementById("tabMenuContent"+this.name).style.display="none"; 
-
-    //$("olControlEditingToolbar").empty();
-    
-        
-    //console.log(ligeo.ligeoMap.planLayers[ligeo.ligeoMap.planLayersName.indexOf("wfs-edit")])
+        that.restartEditSelectbox();
     }
 
     $("#tabMenuContenteditorSelect").change(function() { 
         if ($("#tabMenuContenteditorSelect").val()=="0")
         {
-            $("#editingPanel").hide();
+            that.restartEditSelectbox();
         }
         else{
             $("#editingPanel").show();
@@ -80,15 +66,33 @@ function LiGeoeditor(ligeo){
 
     
     this.restartEditSelectbox = function(){
-        //console.log(wfs)
-        if(wfs){
-            wfs.destroyFeatures()
-        // wfs.destroy();
+        
+        if(ligeo.ligeoMap.map.getLayersByName("WFS").length > 0)
+        {
+            for(var i=0;i<ligeo.ligeoMap.map.getLayersByName("WFS").length;i++){
+                console.log(ligeo.ligeoMap.map.getLayersByName("WFS")[i])
+                ligeo.ligeoMap.map.removeLayer(ligeo.ligeoMap.map.getLayersByName("WFS")[i]);
+            }
         }
+
+        if(that.panel)
+        {
+            for(i=0; i<that.panel.controls.length;i++)
+            {
+                that.panel.controls[i].deactivate();
+            }
+        
+            that.panel.deactivate();
+        }
+        
+        
         $("#tabMenuContenteditorSelect").val(0);
         $("#editingPanel").hide();
 
-            
+        if(ligeo.ligeoMap.map.layers.indexOf(wfs)> -1)
+        {
+            ligeo.ligeoMap.map.layers[ligeo.ligeoMap.map.layers.indexOf(wfs)].destroy();
+        }
     }
     
     this.addLayer = function(tname, ttype){ 
@@ -117,6 +121,10 @@ function LiGeoeditor(ligeo){
     
     this.editLayer = function(wfsLayer){
       
+        if(wfsLayer=="0")
+        {
+            return
+        };
         for(var i =0;i<ligeo.ligeoMap.planLayersName.length;i++){
             if(ligeo.ligeoMap.planLayersName[i] ==  ligeo.namespace +":"+wfsLayer){
                 wfsLayerType = ligeo.ligeoMap.planLayers[i].metadata.type;
@@ -129,51 +137,24 @@ function LiGeoeditor(ligeo){
         
         function saveSuccess(event) {
             alert('Changes saved')
-            //wfs.removeAllFeatures();
             that.restartEditSelectbox()
         }
         function saveFail(event) {
             alert('Error! Changes not saved');
-            //wfs.removeAllFeatures();
             that.restartEditSelectbox()
             
         } 
         if(wfs)
             wfs.destroyFeatures()
-
-           //wfs-t editable overlay
-        /*    wfs = new OpenLayers.Layer.Vector("WFS", {
-                   strategies: [new OpenLayers.Strategy.BBOX(), saveStrategy], //casem pouzit new OpenLayers.Strategy.Fixed()
-                   projection: new OpenLayers.Projection("EPSG:4326"),
-            styleMap: new OpenLayers.StyleMap({
-                pointRadius: 10,
-                fillColor: "red",
-                fillOpacity: 0.7,
-                strokeColor: "black"
-            }),
-                   protocol: new OpenLayers.Protocol.WFS({
-                           url: wfsu,
-                           featureType: wfsLayer,
-                           featureNS :  "http://www.mapito.org/ligeo_" + ligeo.page,
-                           srsName: "EPSG:4326",
-                           geometryName: "the_geom",
-                           version: "1.1.0",
-                            outputFormat:"GML2",
-                           extractAttributes: false
-                       }),
-                   visibility:true
-           });
-        */
        
-       
-        protocol = new OpenLayers.Protocol.WFS({
+        var protocol = new OpenLayers.Protocol.WFS({
             url: wfsu,
                        featureType: wfsLayer,
                        featureNS :  "http://www.mapito.org/ligeo_" + ligeo.page,
                        srsName: "EPSG:4326",
                        geometryName: "the_geom",
                        version: "1.0.0",
-//            outputFormat:"GML2",
+            // outputFormat:"GML2",
                        extractAttributes: false
         });
 
@@ -181,44 +162,26 @@ function LiGeoeditor(ligeo){
                    strategies: [new OpenLayers.Strategy.BBOX(), saveStrategy], //casem pouzit new OpenLayers.Strategy.Fixed()
             protocol: protocol,
                    projection: new OpenLayers.Projection("EPSG:4326"),
-            styleMap: new OpenLayers.StyleMap({
+            /*styleMap: new OpenLayers.StyleMap({
                 pointRadius: 10,
-                fillColor: "red",
+                fillColor: "blue",
                 fillOpacity: 0.7,
                 strokeColor: "black"
-            }),
+            }),*/
              visibility:true
         });
 
         var _Callback = function(resp) {
-            console.log(resp);
-            //console.log(resp.error);
-
             try {
-                var gmlOptions = {
-                    featureType: "feature",
-                    featureNS: "http://www.mapito.org/ligeo_" + ligeo.page
-                };
-                var gmlOptionsIn = OpenLayers.Util.extend(
-                    OpenLayers.Util.extend({}, gmlOptions)
-                    );
-
-                var gmlParser = new OpenLayers.Format.GML(gmlOptionsIn);
+                var gmlParser = new OpenLayers.Format.GML();
                 gmlParser.extractAttributes = true;
-                //var features = gmlParser.read(resp.features);
                 var features = gmlParser.read(resp.priv.responseText);
-                console.log(resp.priv.responseText);
-                console.log(wfs);
-            //wfs.addFeatures(resp.features);
-            
-                
-                
             } catch(e) {
                 alert("Error: " + e);
             }
         };
 
-        response = protocol.read({
+        var response = protocol.read({
             maxFeatures: 100,
             callback: _Callback
         });
@@ -242,20 +205,15 @@ function LiGeoeditor(ligeo){
         ligeo.ligeoMap.map.addControl(highlightCtrl);
         ligeo.ligeoMap.map.addControl(selectCtrl);
         
-        highlightCtrl.activate();
+        //highlightCtrl.activate();
         selectCtrl.activate();
         
-        /* END HIGHLIGHT */
-        
-        /* SNAPPING */
-        // ConfiguraciÃ³n del Snapping
         var snap = new OpenLayers.Control.Snapping({
             layer: wfs
         });
         ligeo.ligeoMap.map.addControl(snap);
         snap.activate();
         
-        // ConfiguraciÃ³n del Split
         var split = new OpenLayers.Control.Split({
             layer: wfs,
             source: wfs,
@@ -264,16 +222,13 @@ function LiGeoeditor(ligeo){
             eventListeners: {
                 aftersplit: function(event) {
                     var msg = "Split resulted in " + event.features.length + " features.";
-                    flashFeatures(event.features);
+                //flashFeatures(event.features);
                 }
             }
         });
         
         ligeo.ligeoMap.map.addControl(split);
         split.activate();
-        
-        /* PANEL */
-        // crear un panel y aÃ±adirle iconos con funcionalidad
         
         var container = document.getElementById("editingPanel");
         this.panel = new OpenLayers.Control.Panel(
@@ -282,7 +237,6 @@ function LiGeoeditor(ligeo){
             div: container
         }
         );
-        
         
         var type;
         var styleEdit;
@@ -296,7 +250,7 @@ function LiGeoeditor(ligeo){
             type = OpenLayers.Handler.Polygon;
             styleEdit = "olControlDrawFeaturePolygon";
         }
-        // Control para digitalizar puntos (draw)
+        
         var draw = new OpenLayers.Control.DrawFeature(
             wfs, type,
             {
@@ -307,13 +261,9 @@ function LiGeoeditor(ligeo){
                     multi: true
                 },
                 div:container
-            
             }
             );
         
-       
-        // Control para modificar elementos. En el caso de puntos sÃ³lo se pueden desplazar
-        // a otra posiciÃ³n
         var modify = new OpenLayers.Control.ModifyFeature(
             wfs, {
                 displayClass: "olControlModifyFeature", 
@@ -322,13 +272,11 @@ function LiGeoeditor(ligeo){
             }
             );
         
-        // Control para borrar elementos
         var del = new DeleteFeature(wfs, {
             title: "Delete Feature",
             div:container
         });
         
-        // Control para salvar la sesiÃ³n de digitalizaciÃ³n
         var save = new OpenLayers.Control.Button({
             title: "Save Changes",
             trigger: function() {
@@ -349,6 +297,8 @@ function LiGeoeditor(ligeo){
         this.panel.defaultControl = this.panel.controls[0];
         ligeo.ligeoMap.map.addControl(this.panel);
         
+        console.log(this.panel);
+        
     }
 
 }
@@ -365,6 +315,7 @@ var DeleteFeature = OpenLayers.Class(OpenLayers.Control, {
             );
     },
     clickFeature: function(feature) {
+        alert("Feature will be deleted after save.");
         // if feature doesn't have a fid, destroy it
         if(feature.fid == undefined) {
             this.layer.destroyFeatures([feature]);
