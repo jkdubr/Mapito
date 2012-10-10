@@ -12,7 +12,29 @@ params and values: list "param name":"value","param name2":"value2"
 example: http://server.org/api/?json={"request":"layersForJSTree","userHash":"d3d6bf4f91c68668b36df1ab45297b19","param":{"planId":9}}
 
 Output is mostly JSON format
+  
+    
+##Plan
+###plan.list
+params: none
         
+Return list of user's plan with basic description. 
+        
+###plan.public.list
+params: none
+        
+Return list of all public plans with basic description. 
+        
+###plan.public.kml
+params: none
+        
+Return list of all public plans with basic description in KML.
+        
+###plan.detail
+param->name
+        
+Return detail information about plan.
+
 ## Layer functions
 
 ### layer.forJSTree
@@ -30,6 +52,27 @@ param: layerIds
         
 Return basic information about layer. 
         
+
+##User functions
+###user.login
+params: mail,password
+        
+Sign in user. Return [user hash].
+        
+###user.logout
+params: none
+        
+Log out user.
+        
+###user.hash
+params: none
+
+## Layer`s style
+###style.sld
+param: layerId
+        
+Return SLD style for the layer.
+    
 ## Form functions
 
 ###form.detail
@@ -58,43 +101,3 @@ param: formId
         
 Upload file into form's layer folder. Return URL of the uploaded file.
         
-##User functions
-###user.login
-params: mail,password
-        
-Sign in user. Return [user hash].
-        
-###user.logout
-params: none
-        
-Log out user.
-        
-###user.hash
-params: none
-
-## Layer`s style
-###style.sld
-param: layerId
-        
-Return SLD style for the layer.
-        
-##Plan
-###plan.list
-params: none
-        
-Return list of user's plan with basic description. 
-        
-###plan.public.list
-params: none
-        
-Return list of all public plans with basic description. 
-        
-###plan.public.kml
-params: none
-        
-Return list of all public plans with basic description in KML.
-        
-###plan.detail
-param->name
-        
-Return detail information about plan.
