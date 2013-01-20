@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+        <script type="text/javascript" src="lib/js/ligeo.mobile.js"></script>
+
+
+
+        <script src="lib/js/jquery.url.js"></script>
+
+        <script src="http://openlayers.org/api/OpenLayers.js"></script>
+
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAA27tAnK9H0ScdWdR-wUE6uBT12xgyeiOZmLY-ivXV0TnI_2oYyRS2D0MHXs0b3hsez9PXCXIkJ6G-9Q"  type="text/javascript"></script>
+
+
+        <style>
+            html ,
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+            .ui-content {
+                padding: 0;
+            }
+            .ui-footer {
+                text-align: center;
+                padding: 5px 0;
+            }
+            .portrait, .portrait #mappage {
+                min-height: 0;
+            }
+            /*.portrait, .portrait .ui-page{*/
+            /*min-height: 0;*/
+            /*}*/
+            #mappage, #mappage .ui-content, #map {
+                width: 100%;
+                height: 100%;
+            }
+            .olControlAttribution {
+                font-size: 10px;
+                bottom: 5px;
+                right: 5px;
+            }
+            #navigation {
+                position: absolute;
+                bottom: 70px;
+                left: 10px;
+                z-index: 1000;
+            }
+            #navigation .ui-btn-icon-notext {
+                display: block;
+                padding: 7px 6px 7px 8px;
+            }
+            #title, #tags, #shortdesc {
+                display: none;
+            }
+            .ui-icon-check {
+                opacity: 0.3;
+            }
+            .checked .ui-icon-check {
+                opacity: 1;
+            }
+            .ui-content .ui-listview-inset, #search_results {
+                margin: 1em;
+            }
+            .ui-content .ui-listview {
+                margin: 0px;
+            }
+            #details-list li{
+                padding:15px 10px;
+            }
+        </style>
+
+
+        <script type="text/javascript">
+            var map;
+            var distance
+
+
+            
+
+            $( document ).bind( "pagecreate", function( event, data ){
+
+                var options = {
+                    projection: new OpenLayers.Projection("EPSG:4326"),
+                    displayProjection: new OpenLayers.Projection("EPSG:4326"),
+                    units: "m",
+        
+                    maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
+                    //   maxExtent: new OpenLayers.Bounds(<?php echo(implode(',', $spec->pages[0]->bbox)); ?>),
+                    allOverlays: true,
+                    controls: [ new OpenLayers.Control.KeyboardDefaults(),
+                        new OpenLayers.Control.TouchNavigation({
+                            dragPanOptions: {
+                                interval: 0, // non-zero kills performance on some mobile phones
+                                enableKinetic: true
+                            }})]
+                };
+    
+                map = new OpenLayers.Map('map',options);
+                //map.addControl(new OpenLayers.Control.LayerSwitcher());
+            
+                var gphy = new OpenLayers.Layer.Google(
+                "Google Physical",
+                {type: G_PHYSICAL_MAP}
+            );
+            
+                var gsat = new OpenLayers.Layer.Google(
+                "Google Satellite",
+                {
+                    type: G_SATELLITE_MAP,
+                    'sphericalMercator': true,
+                    visibility: true,
+                    format: "image/png",
+                    opacity: 1,
+                    isBaseLayer: true,
+                    minZoomLevel: 8,
+                    maxZoomLevel: 20
+                })
+                map.addLayers([gsat]);
+                             
+                             
+                var layerIds = $.url().param("layerIds").split(",");
+                var layerIdsStr = "";
+                for(var i=0;i<layerIds.length; i++){
+                    layerIdsStr +=(i>0 ? "," : "")+layerIds[i];
+                }  
+                var json = '{"request":"layer.basic","userHash":"'+userHash+'","param":{"layerIds":['+layerIdsStr+']}}';
+                var layersJson = "../../admin/api/?json="+json;
+ 
+                var res = OpenLayers.Request.issue({ 
+                    method: 'POST', 
+                    params: {
+                        json:json
+                    },
+                    url: layersJson, 
+                    headers:{
+                        "Content-Type": 
+                            "application/x-www-form-urlencoded"
+                    }, 
+                    async: false
+                }); 
+
+                var g =  new OpenLayers.Format.JSON(); 
+                var data = g.read(res.responseText); 
+    
+                //[{"id":"ligeo_demo:cp","opacity":"10","url":"http://ligeo.mostar.cz/admin/api/proxyWMS.php?","layerId":75}]
+                for(var i = 0; i < data.length; i++)
+                {
+                
+                
+                    var layer = new OpenLayers.Layer.WMS(data[i]["id"], data[i]["url"],
+                    {
+                                                                
+                        layers:data[i]["id"],
+                        format:"image/png",
+    
+                        name:data[i]["id"],
+                        id:data[i]["id"],
+                        transparent: true
+                    },
+                    {
+                        opacity: data[i]["opacity"]/10,
+                        singleTile: true,
+                        isBaseLayer: false,
+                        buffer: 0,
+                        tileLoadingDelay: 0,
+                        ratio: 1
+                    }
+                );
+                    map.addLayer(layer);
+                }
+    
+                //"mapCenterLat":"6445303.4174304","mapCenterLon":"","mapZoom":"7"
+                if (navigator.geolocation) 
+                {
+                    navigator.geolocation.getCurrentPosition( 
+            
+                    function (position) {  
+                        
+                
+                        map.setCenter(new OpenLayers.LonLat(position.coords.longitude, position.coords.latitude).transform(
+                        new OpenLayers.Projection("EPSG:4326"),
+                        map.getProjectionObject()), 7);    
+                    }
+                )
+                }
+                
+                map.setCenter(new OpenLayers.LonLat(1759193.4382234, 6445303.4174304), 7);    
+                
+            })
+            
+            
+        
+
+           
+
+
+        </script>
+    </head>
+    <body>
+        <div data-role="page" id="mappage">
+
+            <div data-role="header">
+                <a href="formList.html" data-icon="arrow-l" data-ajax="false">Back</a>
+                <h1>Map</h1>
+            </div>
+
+            <div data-role="content">	
+                <div id="map" style="width: 100%;height: 100%">
+
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+</html>

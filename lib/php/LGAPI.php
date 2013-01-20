@@ -364,10 +364,18 @@ class LGAPI {
         $res = array();
 
         switch ($this->request->request) {
+         
+            
             case "layer.forJSTree":
+                /**
+                 * 
+                 */
                 $res = $this->layerForJSTree($this->request->param->planId);
                 break;
             case "layer.list":
+                /**
+                 * 
+                 */
                 $res = $this->layerList($this->request->param->planId);
                 break;
             case "layer.basic":

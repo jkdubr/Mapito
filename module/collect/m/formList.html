@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+        <script type="text/javascript" src="lib/js/ligeo.mobile.js"></script>
+
+
+        <script type="text/javascript">
+            
+            $( document ).bind( "pagecreate", function( event, data ){
+                if(!userHash)
+                    $.mobile.changePage("index.html", null, false, true );
+                formSelectboxDisplay();
+            })
+        </script>
+    </head>
+    <body>
+        <div data-role="page" >
+
+            <div data-role="header">
+                <a onclick="formDetailBack()" id="pageHeaderButtonBack" data-icon="arrow-l" style="display: none">Back</a>
+                <h1>Ligeo</h1>
+                <a onclick="logout()">Logout</a>
+            </div>
+
+            <div data-role="content">	
+
+                <div id="pageFormList">
+
+                    <ul data-role="listview" id="formListSelectBox" data-filter="true"  data-split-icon="search"></ul>
+
+                </div>
+
+
+                <form  action="../../admin/api/" method="POST" onsubmit="return formDetailSubmit(this)" id="pageFormDetail"  style="display: none"  data-ajax="false">
+
+                    <input type="hidden" name="ligeoLng">
+                    <input type="hidden" name="ligeoLat">
+
+                    <div id="formDetailForm"></div>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+
+        </div>
+
+    </body>
+</html>
