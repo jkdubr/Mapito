@@ -10,7 +10,7 @@ Contact information: Jakub Dubrovsky (jkdubr@hotmail.com)
 
 Mapito is available at (https://github.com/jkdubr/Mapito) .
 
-## Requirments
+## Requirements
 
 PHP, MySQL, PostGIS, Geoserver
 
@@ -48,7 +48,7 @@ Transfer Mapito on your PHP server or PUSH it to OpenShift.
 
 ## Getting started with Mapito
 
-### Account set up
+### Account setup
 
 You can set up Mapito in short time and run your map portal. Fill in your MySQL account for storing metadata, PostGIS account for storing GIS data, Geoserver account and URL where Mapito is. Mapito admin page URL is URL where is root Mapito page. Mapito viewer url is where Mapito map portal is. Default is http://admin.your_domain.com/module/viewer, but you can change it.
 
@@ -56,7 +56,7 @@ You can set up Mapito in short time and run your map portal. Fill in your MySQL 
 
 After setting up basic information is send to your mail. Your new Mapito login is your email, password is your email. 
 
-### Enjoy map portal
+### Enjoy your map portal
 If your account is set up correctly, go to admin page and disable Mapito setup page. Enjoy map portal.  
 
 If you cannot login into Mapito admin page or have an error in database connection you can go again to setup page /install/settings.php and set up Mapito again.  
@@ -64,7 +64,7 @@ If you cannot login into Mapito admin page or have an error in database connecti
 ![alt](https://public.sn2.livefilestore.com/y1pX5_CiWXrj_9hOT7IYo9ZNhSufRCTgJkP1QBorRnaJnoyKfodJs2EbciMCV8BVlItHGbOZx25CCsbDFQQaik8jw/map.png?psid=1)
 
 
-## Create first map portal
+## Create your first map portal
 
 ### Create map portal
 
