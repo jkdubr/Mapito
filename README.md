@@ -46,6 +46,20 @@ For installing Geoserver look at my previous blogpost (http://dubrovsky.posterou
 
 Transfer Mapito on your PHP server or PUSH it to OpenShift.
 
+### Troubles
+
+You need PHP support for pgsql
+apt-get install php5-pgsql
+/etc/init.d/apache2 restart
+
+You need PHP support for curl
+sudo apt-get install php5-curl; 
+sudo service apache2 restart. 
+
+Enable htaccess
+https://help.ubuntu.com/community/EnablingUseOfApacheHtaccessFiles
+
+
 ## Getting started with Mapito
 
 ### Account set up
