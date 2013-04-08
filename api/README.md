@@ -37,6 +37,7 @@ Return detail information about plan.
 
 ## Layer functions
 
+
 ### layer.forJSTree
 params: planId
     
@@ -51,7 +52,13 @@ Return JSON info about plan.
 param: layerIds
         
 Return basic information about layer. 
-        
+
+###layer.add
+params: planId, layerName, folderId, layerType          
+
+layerName - name of the layer - string
+folderId - folder in tree - string
+layerType: type of the vector layer enum: POINT, MULTIPOLYGON, LINESTRING
 
 ##User functions
 ###user.login
