@@ -15,20 +15,11 @@ Output is mostly JSON format
   
     
 ##Plan
-###plan.list
-params: none
-        
-Return list of user's plan with basic description. 
-        
+
 ###plan.public.list
 params: none
         
 Return list of all public plans with basic description. 
-        
-###plan.public.kml
-params: none
-        
-Return list of all public plans with basic description in KML.
         
 ###plan.detail
 param->name
