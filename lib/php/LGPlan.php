@@ -22,7 +22,7 @@ class LGPlan {
     var $private;
 
     public function __construct($planId) {
-        $v = mydb_query("select * from plan where planId=" . (int) $planId . ";");
+        $v = mydb_query("select * from `plan` where planId=" . (int) $planId . ";");
 
         while ($z = $v->fetch_array()) {
             $this->name = $z["name"];
