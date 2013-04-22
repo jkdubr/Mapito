@@ -97,12 +97,24 @@ class GeoserverAPI {
 
     function createLayer($workspaceName, $datastoreName, $layerName, $layerTitle, $layerSrs = "EPSG:4326") {
 
+        $box["minx"] = -180;
+        $box["maxx"] = 180;
+        $box["miny"] = -90;
+        $box["maxy"] = 90;
+        $box["crs"] = "EPSG:4326";
+
         $temp->featureType->name = $layerName;
         $temp->featureType->nativeName = $layerName;
         $temp->featureType->title = $layerTitle;
         $temp->featureType->srs = $layerSrs;
+        $temp->featureType->latLonBoundingBox = $box;
+        $temp->featureType->nativeBoundingBox = $box;
+
 
         $this->rest->createRequest('workspaces/' . $workspaceName . '/datastores/' . $datastoreName . '/featuretypes', 'POST', json_encode($temp), 'json', array("Accept:application/json"));
+
+
+
         return $this->rest->sendRequest();
     }
 
